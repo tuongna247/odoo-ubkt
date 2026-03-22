@@ -1,2 +1,4 @@
 ﻿_archives
 odoo-docker/data/filestore
+odoo-docker/data/
+odoo/
