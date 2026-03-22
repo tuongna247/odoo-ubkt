@@ -43,7 +43,7 @@ class DonorPortal(CustomerPortal):
 
     @http.route(['/my/donations', '/my/donations/page/<int:page>'],
                 type='http', auth='user', website=True)
-    def portal_donor_list(self, page=1, date_begin=None, date_end=None, sortby=None, benefactor_id=None, **kw):
+    def portal_donor_list(self, page=1, date_begin=None, date_end=None, sortby=None, benefactor_id=None, search=None, **kw):
         employee = self._get_current_employee()
         is_admin = self._is_admin()
 
@@ -57,11 +57,17 @@ class DonorPortal(CustomerPortal):
             domain = [('state', '=', 'posted'), ('benefactor_id', '!=', False)]
             if benefactor_id:
                 domain += [('benefactor_id', '=', int(benefactor_id))]
+            if search:
+                # Tìm employee theo tên trước
+                matched_employees = request.env['hr.employee'].sudo().search([('name', 'ilike', search)])
+                domain += [('benefactor_id', 'in', matched_employees.ids)]
         else:
             domain = [
                 ('benefactor_id', '=', employee.id),
                 ('state', '=', 'posted'),
             ]
+            if search:
+                domain += [('description', 'ilike', search)]
         if date_begin:
             domain += [('date', '>=', date_begin)]
         if date_end:
@@ -79,7 +85,7 @@ class DonorPortal(CustomerPortal):
         total = Payment.search_count(domain)
         pager = portal_pager(
             url='/my/donations',
-            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby},
+            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'search': search, 'benefactor_id': benefactor_id},
             total=total,
             page=page,
             step=20,
@@ -126,6 +132,7 @@ class DonorPortal(CustomerPortal):
             'is_admin': is_admin,
             'all_benefactors': all_benefactors,
             'selected_benefactor_id': int(benefactor_id) if benefactor_id else None,
+            'search': search or '',
         }
         return request.render('donor_portal.portal_donor_list', values)
 
@@ -149,9 +156,14 @@ class DonorPortal(CustomerPortal):
         if not payment:
             return request.redirect('/my/donations')
 
+        task = payment.project_task_id
+        attachments = task.attachment_id if task else request.env['ir.attachment']
+
         values = {
             'employee': employee or payment.benefactor_id,
             'payment': payment,
+            'task': task,
+            'attachments': attachments,
             'page_name': 'donor',
             'is_admin': is_admin,
         }

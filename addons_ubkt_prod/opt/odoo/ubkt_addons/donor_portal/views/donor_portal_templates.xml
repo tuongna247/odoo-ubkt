@@ -115,13 +115,24 @@
                     </div>
                 </t>
 
-                <!-- Bộ lọc ân nhân (chỉ admin) -->
+                <!-- Bộ lọc ân nhân + tìm kiếm (chỉ admin) -->
                 <t t-if="is_admin">
                     <div class="row mb8">
                         <div class="col-12">
-                            <form method="GET" action="/my/donations" class="form-inline">
-                                <div class="form-group mr-2">
-                                    <label class="mr-1 small text-muted">Xem ân nhân:</label>
+                            <form method="GET" action="/my/donations" class="form-inline flex-wrap">
+                                <!-- Tìm kiếm tên ân nhân -->
+                                <div class="input-group mr-2 mb-2" style="max-width: 280px;">
+                                    <input type="text" name="search" class="form-control form-control-sm"
+                                           placeholder="Tìm tên ân nhân..."
+                                           t-att-value="search"/>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-search"/>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Dropdown chọn ân nhân -->
+                                <div class="form-group mr-2 mb-2">
                                     <select name="benefactor_id" class="form-control form-control-sm" onchange="this.form.submit()">
                                         <option value="">-- Tất cả ân nhân --</option>
                                         <t t-foreach="all_benefactors" t-as="b">
@@ -132,6 +143,10 @@
                                         </t>
                                     </select>
                                 </div>
+                                <!-- Xóa lọc -->
+                                <a href="/my/donations" class="btn btn-sm btn-outline-secondary mb-2">
+                                    <i class="fa fa-times mr-1"/>Xóa lọc
+                                </a>
                             </form>
                         </div>
                     </div>
@@ -365,54 +380,123 @@
                                 </table>
 
                                 <!-- Thông tin dự án (nếu có) -->
-                                <t t-if="payment.project_task_id">
+                                <t t-if="task">
                                     <hr/>
+
+                                    <!-- Tên dự án + link nhà thờ -->
                                     <h6 class="text-muted">
                                         <i class="fa fa-building-o mr-1"/> Thông tin dự án
                                     </h6>
                                     <table class="table table-borderless table-sm">
                                         <tbody>
-                                            <tr t-if="payment.project_task_id.total_estimate_church">
-                                                <th class="text-muted w-40">Tổng kinh phí dự kiến</th>
+                                            <tr t-if="task.partner_id">
+                                                <th class="text-muted w-40">Nhà thờ / Hội thánh</th>
                                                 <td>
-                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.total_estimate_church)"/> VNĐ
+                                                    <a t-attf-href="/my/donations?benefactor_id=#{payment.benefactor_id.id}"
+                                                       class="font-weight-bold">
+                                                        <i class="fa fa-map-marker mr-1 text-danger"/>
+                                                        <t t-esc="task.partner_id.name"/>
+                                                    </a>
+                                                    <t t-if="task.city or task.state_id">
+                                                        <br/>
+                                                        <small class="text-muted">
+                                                            <t t-if="task.city"><t t-esc="task.city"/></t>
+                                                            <t t-if="task.city and task.state_id">, </t>
+                                                            <t t-if="task.state_id"><t t-esc="task.state_id.name"/></t>
+                                                        </small>
+                                                    </t>
+                                                    <t t-if="task.partner_id.website">
+                                                        <br/>
+                                                        <a t-att-href="task.partner_id.website" target="_blank" class="small">
+                                                            <i class="fa fa-external-link mr-1"/>
+                                                            <t t-esc="task.partner_id.website"/>
+                                                        </a>
+                                                    </t>
                                                 </td>
                                             </tr>
-                                            <tr t-if="payment.project_task_id.total_amount_spent">
+                                            <tr t-if="task.total_estimate_church">
+                                                <th class="text-muted">Tổng kinh phí dự kiến</th>
+                                                <td><t t-esc="'{:,.0f}'.format(task.total_estimate_church)"/> VNĐ</td>
+                                            </tr>
+                                            <tr t-if="task.total_amount_spent">
                                                 <th class="text-muted">Đã chi đến nay</th>
-                                                <td>
-                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.total_amount_spent)"/> VNĐ
-                                                </td>
+                                                <td><t t-esc="'{:,.0f}'.format(task.total_amount_spent)"/> VNĐ</td>
                                             </tr>
-                                            <tr t-if="payment.project_task_id.amount_wantage">
+                                            <tr t-if="task.amount_wantage">
                                                 <th class="text-muted">Còn thiếu</th>
                                                 <td class="text-danger font-weight-bold">
-                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.amount_wantage)"/> VNĐ
+                                                    <t t-esc="'{:,.0f}'.format(task.amount_wantage)"/> VNĐ
                                                 </td>
                                             </tr>
-                                            <tr t-if="payment.project_task_id.up_to_date">
+                                            <tr t-if="task.up_to_date">
                                                 <th class="text-muted">Cập nhật đến ngày</th>
-                                                <td>
-                                                    <span t-field="payment.project_task_id.up_to_date" t-options='{"widget": "date"}'/>
-                                                </td>
+                                                <td><span t-field="task.up_to_date" t-options='{"widget": "date"}'/></td>
                                             </tr>
                                         </tbody>
                                     </table>
 
                                     <!-- Thanh tiến độ tài chính -->
-                                    <t t-if="payment.project_task_id.total_estimate_church and payment.project_task_id.total_amount_spent">
-                                        <div class="mt-2">
+                                    <t t-if="task.total_estimate_church and task.total_amount_spent">
+                                        <div class="mt-2 mb-3">
                                             <div class="d-flex justify-content-between small text-muted mb-1">
                                                 <span>Tiến độ tài chính</span>
                                                 <span>
-                                                    <t t-esc="min(int(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100), 100)"/>%
+                                                    <t t-esc="min(int(task.total_amount_spent / task.total_estimate_church * 100), 100)"/>%
                                                 </span>
                                             </div>
                                             <div class="progress" style="height: 8px;">
                                                 <div class="progress-bar bg-success"
-                                                     t-att-style="'width: %s%%' % min(int(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100), 100)">
+                                                     t-att-style="'width: %s%%' % min(int(task.total_amount_spent / task.total_estimate_church * 100), 100)">
                                                 </div>
                                             </div>
+                                        </div>
+                                    </t>
+
+                                    <!-- Hình ảnh đợt thi công -->
+                                    <t t-if="attachments">
+                                        <hr/>
+                                        <h6 class="text-muted mb-3">
+                                            <i class="fa fa-picture-o mr-1"/> Hình ảnh công trình
+                                        </h6>
+                                        <div class="row">
+                                            <t t-foreach="attachments" t-as="att">
+                                                <div class="col-md-4 mb-3">
+                                                    <div class="card border-0 shadow-sm h-100">
+                                                        <!-- Ảnh -->
+                                                        <t t-if="att.mimetype and 'image' in att.mimetype">
+                                                            <a t-attf-href="/web/image/#{att.id}/#{att.name}"
+                                                               target="_blank">
+                                                                <img t-attf-src="/web/image/#{att.id}"
+                                                                     class="card-img-top"
+                                                                     style="height: 180px; object-fit: cover;"
+                                                                     t-att-alt="att.name"/>
+                                                            </a>
+                                                        </t>
+                                                        <!-- File không phải ảnh -->
+                                                        <t t-else="">
+                                                            <div class="card-body text-center py-4">
+                                                                <i class="fa fa-file-o fa-3x text-muted"/>
+                                                            </div>
+                                                        </t>
+                                                        <div class="card-body py-2 px-3">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <small class="font-weight-bold text-truncate" style="max-width: 140px;"
+                                                                       t-esc="att.name"/>
+                                                                <a t-attf-href="/web/content/#{att.id}?download=true"
+                                                                   class="btn btn-sm btn-outline-secondary"
+                                                                   title="Tải xuống">
+                                                                    <i class="fa fa-download"/>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="alert alert-light small text-muted">
+                                            <i class="fa fa-info-circle mr-1"/> Chưa có hình ảnh công trình.
                                         </div>
                                     </t>
                                 </t>
