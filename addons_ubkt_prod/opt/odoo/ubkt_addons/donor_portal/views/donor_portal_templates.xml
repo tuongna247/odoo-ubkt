@@ -115,10 +115,35 @@
                     </div>
                 </t>
 
+                <!-- Bộ lọc ân nhân (chỉ admin) -->
+                <t t-if="is_admin">
+                    <div class="row mb8">
+                        <div class="col-12">
+                            <form method="GET" action="/my/donations" class="form-inline">
+                                <div class="form-group mr-2">
+                                    <label class="mr-1 small text-muted">Xem ân nhân:</label>
+                                    <select name="benefactor_id" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        <option value="">-- Tất cả ân nhân --</option>
+                                        <t t-foreach="all_benefactors" t-as="b">
+                                            <option t-att-value="b.id"
+                                                    t-att-selected="selected_benefactor_id == b.id or ''">
+                                                <t t-esc="b.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </t>
+
                 <!-- Bộ lọc và sắp xếp -->
                 <div class="row mb16">
                     <div class="col-12">
                         <form method="GET" action="/my/donations" class="form-inline">
+                            <t t-if="is_admin and selected_benefactor_id">
+                                <input type="hidden" name="benefactor_id" t-att-value="selected_benefactor_id"/>
+                            </t>
                             <div class="form-group mr-2 mb-2">
                                 <label class="mr-1 small text-muted">Từ ngày:</label>
                                 <input type="date" name="date_begin" class="form-control form-control-sm"
@@ -380,12 +405,12 @@
                                             <div class="d-flex justify-content-between small text-muted mb-1">
                                                 <span>Tiến độ tài chính</span>
                                                 <span>
-                                                    <t t-esc="'{:.1f}'.format(min(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100, 100))"/>%
+                                                    <t t-esc="min(int(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100), 100)"/>%
                                                 </span>
                                             </div>
                                             <div class="progress" style="height: 8px;">
                                                 <div class="progress-bar bg-success"
-                                                     t-attf-style="width: #{min(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100, 100):.1f}%">
+                                                     t-att-style="'width: %s%%' % min(int(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100), 100)">
                                                 </div>
                                             </div>
                                         </div>

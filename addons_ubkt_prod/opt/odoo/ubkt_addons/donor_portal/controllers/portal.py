@@ -27,7 +27,9 @@ class DonorPortal(CustomerPortal):
         return values
 
     def _get_current_employee(self):
-        """Tìm hr.employee của user hiện tại qua address_home_id hoặc user_id."""
+        """Tìm hr.employee của user hiện tại qua address_home_id hoặc user_id.
+           Admin (uid=2) xem được tất cả — trả về False để dùng domain riêng.
+        """
         partner = request.env.user.partner_id
         employee = request.env['hr.employee'].sudo().search([
             '|',
@@ -36,19 +38,30 @@ class DonorPortal(CustomerPortal):
         ], limit=1)
         return employee
 
+    def _is_admin(self):
+        return request.env.user.has_group('base.group_system')
+
     @http.route(['/my/donations', '/my/donations/page/<int:page>'],
                 type='http', auth='user', website=True)
-    def portal_donor_list(self, page=1, date_begin=None, date_end=None, sortby=None, **kw):
+    def portal_donor_list(self, page=1, date_begin=None, date_end=None, sortby=None, benefactor_id=None, **kw):
         employee = self._get_current_employee()
-        if not employee:
+        is_admin = self._is_admin()
+
+        if not employee and not is_admin:
             return request.render('donor_portal.donor_not_found')
 
         Payment = request.env['account.payment'].sudo()
 
-        domain = [
-            ('benefactor_id', '=', employee.id),
-            ('state', '=', 'posted'),
-        ]
+        # Admin xem được tất cả hoặc lọc theo ân nhân cụ thể
+        if is_admin:
+            domain = [('state', '=', 'posted'), ('benefactor_id', '!=', False)]
+            if benefactor_id:
+                domain += [('benefactor_id', '=', int(benefactor_id))]
+        else:
+            domain = [
+                ('benefactor_id', '=', employee.id),
+                ('state', '=', 'posted'),
+            ]
         if date_begin:
             domain += [('date', '>=', date_begin)]
         if date_end:
@@ -90,6 +103,13 @@ class DonorPortal(CustomerPortal):
                 grand_total_usd += p.foreign_amount or 0.0
             grand_total_vnd += p.amount or 0.0
 
+        # Danh sách ân nhân cho admin lọc
+        all_benefactors = []
+        if is_admin:
+            all_benefactors = request.env['hr.employee'].sudo().search([
+                ('id', 'in', Payment.search([('state', '=', 'posted'), ('benefactor_id', '!=', False)]).mapped('benefactor_id').ids)
+            ])
+
         values = {
             'employee': employee,
             'payments': payments,
@@ -103,6 +123,9 @@ class DonorPortal(CustomerPortal):
             'sortby': sortby,
             'sort_options': sort_options,
             'page_name': 'donor',
+            'is_admin': is_admin,
+            'all_benefactors': all_benefactors,
+            'selected_benefactor_id': int(benefactor_id) if benefactor_id else None,
         }
         return request.render('donor_portal.portal_donor_list', values)
 
@@ -110,21 +133,26 @@ class DonorPortal(CustomerPortal):
                 type='http', auth='user', website=True)
     def portal_donor_detail(self, payment_id, **kw):
         employee = self._get_current_employee()
-        if not employee:
+        is_admin = self._is_admin()
+
+        if not employee and not is_admin:
             return request.render('donor_portal.donor_not_found')
 
-        payment = request.env['account.payment'].sudo().search([
-            ('id', '=', payment_id),
-            ('benefactor_id', '=', employee.id),
-            ('state', '=', 'posted'),
-        ], limit=1)
+        # Admin xem được tất cả, ân nhân chỉ xem của mình
+        if is_admin:
+            domain = [('id', '=', payment_id), ('state', '=', 'posted')]
+        else:
+            domain = [('id', '=', payment_id), ('benefactor_id', '=', employee.id), ('state', '=', 'posted')]
+
+        payment = request.env['account.payment'].sudo().search(domain, limit=1)
 
         if not payment:
             return request.redirect('/my/donations')
 
         values = {
-            'employee': employee,
+            'employee': employee or payment.benefactor_id,
             'payment': payment,
             'page_name': 'donor',
+            'is_admin': is_admin,
         }
         return request.render('donor_portal.portal_donor_detail', values)
