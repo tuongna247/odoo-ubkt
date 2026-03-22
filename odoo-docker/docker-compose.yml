@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  odoo:
+    image: odoo:15
+    container_name: ubkt_odoo15
+    restart: unless-stopped
+    ports:
+      - "8069:8069"
+      - "8072:8072"
+    volumes:
+      - D:/Projects/UBKT/odoo-docker/data:/var/lib/odoo
+      - D:/Projects/UBKT/odoo-docker/odoo.conf:/etc/odoo/odoo.conf:ro
+      - D:/Projects/UBKT/addons_ubkt_prod/opt/odoo/ubkt_addons:/mnt/extra-addons:ro
+    environment:
+      - HOST=host.docker.internal
+      - PORT=5432
+      - USER=odoo15
+      - PASSWORD=B@0Ng0c
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

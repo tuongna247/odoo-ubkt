@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_ht_view_form_extend" model="ir.ui.view">
+        <field name="name">res.partner.ht.view.form.extend</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='contact_addresses']" position="after">
+                <page name='ht_information' string="HT Information">
+                    <group name="container_row_2">
+                        <group string="Total Number of believers" name="total_believers" priority="1">
+                            <field name="total_this_year"/>
+                            <field name="total_last_year"/>
+                            <field name="total_last_two_year"/>
+                        </group>
+                        <group string="The number of believers who meet regularly" name="num_believers_meet" priority="2">
+                            <field name="meet_this_year"/>
+                            <field name="meet_last_year"/>
+                            <field name="meet_last_two_year"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='title']" position="after">
+                <field name="is_foreign"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_view_users_form_extend" model="ir.ui.view">
+        <field name="name">res.view.users.form.extend</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="after">
+                <field name="sign_signature" widget="image"/>
+                <field name="sign_stamp" widget="image"/>
+                <field name="sign_stamp_send" widget="image"/>
+                <field name="user_role"/>
+                <field name="is_approval"/>
+                <field name="data_entry_approval"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

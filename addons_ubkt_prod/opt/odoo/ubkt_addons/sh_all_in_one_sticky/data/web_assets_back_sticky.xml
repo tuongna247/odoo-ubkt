@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+
+        <!-- Chatter Sticky -->
+    <record id="sh_all_in_one_sticky.chatter_assets_backend" model="ir.asset">
+        <field name="name">Chatter View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/chatter_sticky/static/src/scss/chatter_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+    <record id="sh_all_in_one_sticky.form_chatter_assets_backend" model="ir.asset">
+        <field name="name">Form Chatter View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/chatter_sticky/static/src/scss/form_chatter_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+    <record id="sh_all_in_one_sticky.form_chatter_enterprise_assets_backend" model="ir.asset">
+        <field name="name">Form Chatter View Assets Ent</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/chatter_sticky/static/src/scss/form_chatter_custom_enterprise.scss</field>
+        <field name="active">False</field>
+    </record>
+
+    <!-- Form Sticky -->
+    <record id="sh_all_in_one_sticky.form_assets_backend" model="ir.asset">
+        <field name="name">Form View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/form_sticky/static/src/scss/form_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+    <record id="sh_all_in_one_sticky.form_enterprise_assets_backend" model="ir.asset">
+        <field name="name">Form View Assets Ent</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/form_sticky/static/src/scss/form_custom_enterprise.scss</field>
+        <field name="active">False</field>
+    </record>
+
+    <!-- List Inside Form Sticky -->
+    <record id="sh_all_in_one_sticky.list_inside_form_assets_backend" model="ir.asset">
+        <field name="name">List inside Form View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/list_inside_form_sticky/static/src/scss/list_inside_form_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+
+    <!-- List Sticky    -->
+    <record id="sh_all_in_one_sticky.list_assets_backend" model="ir.asset">
+        <field name="name">List View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/list_sticky/static/src/scss/list_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+    <record id="sh_all_in_one_sticky.list_footer_assets_backend" model="ir.asset">
+        <field name="name">List Footer View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/list_sticky/static/src/scss/list_footer_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+
+    <!-- Pivot Sticky -->
+    <record id="sh_all_in_one_sticky.pivot_assets_backend" model="ir.asset">
+        <field name="name">Pivot View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/pivot_sticky/static/src/scss/pivot_custom.scss</field>
+        <field name="active">False</field>
+    </record>
+    
+    <!-- Grouped Kanban View Header Sticky -->
+    <record id="sh_all_in_one_sticky.grouped_kanban_header_assets_backend" model="ir.asset">
+        <field name="name">Grouped Kanban View Assets</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="path">sh_all_in_one_sticky/grouped_kanban_header_sticky/static/src/scss/grouped_kanban_header_sticky.scss</field>
+        <field name="active">False</field>
+    </record>
+
+    </data>
+</odoo>

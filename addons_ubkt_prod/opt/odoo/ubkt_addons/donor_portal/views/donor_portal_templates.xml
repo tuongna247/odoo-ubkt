@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Thêm mục "Lịch sử dâng hiến" vào trang chủ portal -->
+    <template id="portal_my_home_donor" name="Lịch sử dâng hiến" inherit_id="portal.portal_my_home" customize_show="True" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Lịch sử dâng hiến</t>
+                <t t-set="url" t-value="'/my/donations'"/>
+                <t t-set="placeholder_count" t-value="'donor_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Trang không tìm thấy nhân viên -->
+    <template id="donor_not_found" name="Donor Not Found">
+        <t t-call="portal.portal_layout">
+            <div class="container mt32 mb32">
+                <div class="alert alert-warning text-center">
+                    <h4><i class="fa fa-exclamation-triangle"/> Không tìm thấy thông tin</h4>
+                    <p>Tài khoản của bạn chưa được liên kết với hồ sơ nhân viên/người dâng hiến.</p>
+                    <p>Vui lòng liên hệ ban quản trị để được hỗ trợ.</p>
+                    <a href="/my/home" class="btn btn-primary mt8">Quay về trang chủ</a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Danh sách dâng hiến -->
+    <template id="portal_donor_list" name="Lịch sử dâng hiến của tôi">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Lịch sử dâng hiến</t>
+            </t>
+
+            <div class="container">
+
+                <!-- Thông tin người dâng hiến -->
+                <div class="row mt16 mb16">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6">
+                                        <h5 class="mb-1 text-primary">
+                                            <i class="fa fa-user-circle mr-2"/>
+                                            <t t-esc="employee.name"/>
+                                        </h5>
+                                        <small class="text-muted">
+                                            <t t-esc="employee.job_title or employee.department_id.name or ''"/>
+                                        </small>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <div class="text-muted small">Tổng số lần dâng</div>
+                                        <div class="h4 text-primary mb-0">
+                                            <t t-esc="total_count"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <div class="text-muted small">Tổng đã dâng (VNĐ)</div>
+                                        <div class="h4 text-success mb-0">
+                                            <t t-esc="'{:,.0f}'.format(grand_total_vnd)"/>
+                                        </div>
+                                        <t t-if="grand_total_usd > 0">
+                                            <small class="text-muted">
+                                                + <t t-esc="'{:,.2f}'.format(grand_total_usd)"/> USD
+                                            </small>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tổng hợp theo dự án -->
+                <t t-if="by_project">
+                    <div class="row mb24">
+                        <div class="col-12">
+                            <h6 class="text-muted mb12">
+                                <i class="fa fa-bar-chart mr-1"/> Tóm tắt theo dự án
+                            </h6>
+                            <div class="row">
+                                <t t-foreach="by_project.items()" t-as="proj">
+                                    <div class="col-md-4 mb12">
+                                        <div class="card h-100 border-left-primary" style="border-left: 4px solid #875A7B;">
+                                            <div class="card-body py-2 px-3">
+                                                <div class="font-weight-bold text-truncate small" t-esc="proj[0]"/>
+                                                <div class="row mt-1">
+                                                    <div class="col-6">
+                                                        <span class="text-muted small">Số lần:</span>
+                                                        <span class="font-weight-bold ml-1" t-esc="proj[1]['count']"/>
+                                                    </div>
+                                                    <div class="col-6 text-right">
+                                                        <span class="text-success font-weight-bold small">
+                                                            <t t-esc="'{:,.0f}'.format(proj[1]['total_vnd'])"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <t t-if="proj[1]['total_usd'] > 0">
+                                                    <div class="text-right">
+                                                        <small class="text-muted">
+                                                            <t t-esc="'{:,.2f}'.format(proj[1]['total_usd'])"/> USD
+                                                        </small>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Bộ lọc và sắp xếp -->
+                <div class="row mb16">
+                    <div class="col-12">
+                        <form method="GET" action="/my/donations" class="form-inline">
+                            <div class="form-group mr-2 mb-2">
+                                <label class="mr-1 small text-muted">Từ ngày:</label>
+                                <input type="date" name="date_begin" class="form-control form-control-sm"
+                                       t-att-value="date_begin or ''"/>
+                            </div>
+                            <div class="form-group mr-2 mb-2">
+                                <label class="mr-1 small text-muted">Đến ngày:</label>
+                                <input type="date" name="date_end" class="form-control form-control-sm"
+                                       t-att-value="date_end or ''"/>
+                            </div>
+                            <div class="form-group mr-2 mb-2">
+                                <label class="mr-1 small text-muted">Sắp xếp:</label>
+                                <select name="sortby" class="form-control form-control-sm">
+                                    <option value="date_desc" t-att-selected="sortby == 'date_desc' or ''">Mới nhất</option>
+                                    <option value="date_asc" t-att-selected="sortby == 'date_asc' or ''">Cũ nhất</option>
+                                    <option value="amount_desc" t-att-selected="sortby == 'amount_desc' or ''">Số tiền cao nhất</option>
+                                    <option value="amount_asc" t-att-selected="sortby == 'amount_asc' or ''">Số tiền thấp nhất</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary mb-2">
+                                <i class="fa fa-filter"/> Lọc
+                            </button>
+                            <a href="/my/donations" class="btn btn-sm btn-outline-secondary ml-1 mb-2">
+                                <i class="fa fa-times"/> Xóa lọc
+                            </a>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Timeline dâng hiến -->
+                <t t-if="payments">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="o_portal_timeline">
+                                <t t-foreach="payments" t-as="p">
+                                    <div class="card mb-2 shadow-sm">
+                                        <div class="card-body py-2 px-3">
+                                            <div class="row align-items-center">
+
+                                                <!-- Ngày -->
+                                                <div class="col-md-2 text-center">
+                                                    <div class="text-muted small">
+                                                        <i class="fa fa-calendar mr-1"/>
+                                                        <span t-field="p.date" t-options='{"widget": "date"}'/>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Mã phiếu -->
+                                                <div class="col-md-2">
+                                                    <a t-attf-href="/my/donations/#{p.id}" class="font-weight-bold text-primary">
+                                                        <t t-esc="p.name_seq"/>
+                                                    </a>
+                                                </div>
+
+                                                <!-- Dự án -->
+                                                <div class="col-md-4">
+                                                    <t t-if="p.project_task_id">
+                                                        <span class="badge badge-pill badge-light border">
+                                                            <i class="fa fa-building-o mr-1"/>
+                                                            <t t-esc="p.project_task_id.name"/>
+                                                        </span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span class="badge badge-pill badge-secondary">
+                                                            <i class="fa fa-heart mr-1"/>
+                                                            Dâng hiến chung
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="p.description">
+                                                        <br/>
+                                                        <small class="text-muted" t-esc="p.description"/>
+                                                    </t>
+                                                </div>
+
+                                                <!-- Số tiền VNĐ -->
+                                                <div class="col-md-2 text-right">
+                                                    <span class="font-weight-bold text-success">
+                                                        <t t-esc="'{:,.0f}'.format(p.amount)"/> VNĐ
+                                                    </span>
+                                                </div>
+
+                                                <!-- Ngoại tệ -->
+                                                <div class="col-md-2 text-right">
+                                                    <t t-if="p.foreign_amount and p.foreign_amount > 0">
+                                                        <span class="text-muted small">
+                                                            <t t-esc="'{:,.2f}'.format(p.foreign_amount)"/>
+                                                            <t t-esc="p.pay_currency_id.name or ''"/>
+                                                        </span>
+                                                    </t>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phân trang -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <t t-call="portal.pager">
+                                <t t-set="pager" t-value="pager"/>
+                            </t>
+                        </div>
+                    </div>
+
+                </t>
+                <t t-else="">
+                    <div class="alert alert-info text-center">
+                        <i class="fa fa-info-circle mr-2"/>
+                        Chưa có lịch sử dâng hiến nào được ghi nhận.
+                    </div>
+                </t>
+
+            </div>
+        </t>
+    </template>
+
+    <!-- Chi tiết 1 lần dâng hiến -->
+    <template id="portal_donor_detail" name="Chi tiết dâng hiến">
+        <t t-call="portal.portal_layout">
+            <div class="container mt16 mb32">
+
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/my/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/my/donations">Lịch sử dâng hiến</a></li>
+                    <li class="breadcrumb-item active" t-esc="payment.name_seq"/>
+                </ol>
+
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card shadow">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-file-text-o mr-2"/>
+                                    Phiếu dâng hiến: <t t-esc="payment.name_seq"/>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+
+                                <!-- Thông tin cơ bản -->
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-muted w-40">Ngày dâng hiến</th>
+                                            <td>
+                                                <span t-field="payment.date" t-options='{"widget": "date"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-muted">Người dâng hiến</th>
+                                            <td><t t-esc="payment.benefactor_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-muted">Dự án / Hạng mục</th>
+                                            <td>
+                                                <t t-if="payment.project_task_id">
+                                                    <strong t-esc="payment.project_task_id.name"/>
+                                                    <t t-if="payment.project_task_id.name_seq">
+                                                        <small class="text-muted ml-1">
+                                                            (<t t-esc="payment.project_task_id.name_seq"/>)
+                                                        </small>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="text-muted">Dâng hiến chung</span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="payment.project_task_id.partner_id">
+                                            <th class="text-muted">Hội thánh / Địa điểm</th>
+                                            <td><t t-esc="payment.project_task_id.partner_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-muted">Số tiền (VNĐ)</th>
+                                            <td>
+                                                <span class="h5 text-success font-weight-bold">
+                                                    <t t-esc="'{:,.0f}'.format(payment.amount)"/> VNĐ
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="payment.foreign_amount and payment.foreign_amount > 0">
+                                            <th class="text-muted">Số tiền ngoại tệ</th>
+                                            <td>
+                                                <t t-esc="'{:,.2f}'.format(payment.foreign_amount)"/>
+                                                <t t-esc="payment.pay_currency_id.name or ''"/>
+                                                <small class="text-muted ml-1">
+                                                    (Tỷ giá: <t t-esc="'{:,.0f}'.format(payment.exchange_rate)"/>)
+                                                </small>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="payment.description">
+                                            <th class="text-muted">Nội dung</th>
+                                            <td><t t-esc="payment.description"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-muted">Trạng thái</th>
+                                            <td>
+                                                <span class="badge badge-success">
+                                                    <i class="fa fa-check mr-1"/> Đã xác nhận
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="payment.signed_by">
+                                            <th class="text-muted">Người xác nhận</th>
+                                            <td>
+                                                <t t-esc="payment.signed_by"/>
+                                                <t t-if="payment.signed_on">
+                                                    <small class="text-muted ml-1">
+                                                        lúc <span t-field="payment.signed_on"/>
+                                                    </small>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Thông tin dự án (nếu có) -->
+                                <t t-if="payment.project_task_id">
+                                    <hr/>
+                                    <h6 class="text-muted">
+                                        <i class="fa fa-building-o mr-1"/> Thông tin dự án
+                                    </h6>
+                                    <table class="table table-borderless table-sm">
+                                        <tbody>
+                                            <tr t-if="payment.project_task_id.total_estimate_church">
+                                                <th class="text-muted w-40">Tổng kinh phí dự kiến</th>
+                                                <td>
+                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.total_estimate_church)"/> VNĐ
+                                                </td>
+                                            </tr>
+                                            <tr t-if="payment.project_task_id.total_amount_spent">
+                                                <th class="text-muted">Đã chi đến nay</th>
+                                                <td>
+                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.total_amount_spent)"/> VNĐ
+                                                </td>
+                                            </tr>
+                                            <tr t-if="payment.project_task_id.amount_wantage">
+                                                <th class="text-muted">Còn thiếu</th>
+                                                <td class="text-danger font-weight-bold">
+                                                    <t t-esc="'{:,.0f}'.format(payment.project_task_id.amount_wantage)"/> VNĐ
+                                                </td>
+                                            </tr>
+                                            <tr t-if="payment.project_task_id.up_to_date">
+                                                <th class="text-muted">Cập nhật đến ngày</th>
+                                                <td>
+                                                    <span t-field="payment.project_task_id.up_to_date" t-options='{"widget": "date"}'/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Thanh tiến độ tài chính -->
+                                    <t t-if="payment.project_task_id.total_estimate_church and payment.project_task_id.total_amount_spent">
+                                        <div class="mt-2">
+                                            <div class="d-flex justify-content-between small text-muted mb-1">
+                                                <span>Tiến độ tài chính</span>
+                                                <span>
+                                                    <t t-esc="'{:.1f}'.format(min(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100, 100))"/>%
+                                                </span>
+                                            </div>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-success"
+                                                     t-attf-style="width: #{min(payment.project_task_id.total_amount_spent / payment.project_task_id.total_estimate_church * 100, 100):.1f}%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
+
+                            </div>
+                            <div class="card-footer text-right">
+                                <a href="/my/donations" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fa fa-arrow-left mr-1"/> Quay lại danh sách
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

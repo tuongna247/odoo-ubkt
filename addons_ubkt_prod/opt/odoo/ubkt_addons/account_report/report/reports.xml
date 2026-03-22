@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="action_report_cash_book_modify" model="ir.actions.report">
+            <field name="name">Cash Book Modify</field>
+            <field name="model">account.cashbook.modify.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_report.report_cashbook_modify</field>
+            <field name="report_file">account_report.report_cashbook_modify</field>
+        </record>
+
+        <record id="action_report_cash_book_modify_initial_balance" model="ir.actions.report">
+            <field name="name">Cash Book Modify Initial Balance</field>
+            <field name="model">account.cashbook.modify.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">account_report.report_cashbook_modify_initial_balance</field>
+            <field name="report_file">account_report.report_cashbook_modify_initial_balance</field>
+        </record>
+
+    </data>
+</odoo>

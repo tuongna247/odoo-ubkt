@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_fp_view_form_extend" model="ir.ui.view">
+        <field name="name">project.task.fp.view.form.extend</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_assign_to_me']" position="after">
+                <button name="action_create_payment" string="Create Payment" type="object" class="oe_highlight" data-hotkey="c"
+                    groups="!project_custom.group_project_only_user"/>
+                <button name="action_approve_data_entry" string="Approve Data Entry" type="object" class="oe_highlight" data-hotkey="d"
+                    attrs="{'invisible': ['|', ('approved_data_entry', '=', True), ('user_has_data_entry_approval', '=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="name_seq"/>
+                <field name="approved_data_entry"/>
+            </xpath>
+
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="benefactor" attrs="{'invisible': [True]}"/>
+                <field name="user_has_data_entry_approval" attrs="{'invisible': [True]}"/>
+                <field name="finance_promotion"/>
+            </xpath>
+
+            <xpath expr="//page[@name='description_page']" position="after">
+                <page name='fp_form' string="FP form" attrs="{'invisible': [('finance_promotion', '=', False)]}">
+                    <group name="fp_container">
+                        <group string="Finance Info" name="finance_info" priority="1">
+                            <div/>
+                            <field name="total_estimate_church"/>
+                            <field name="total_amount_spent"/>
+                            <field name="up_to_date"/>
+                            <field name="amount_wantage"/>
+                            <field name="child_god_donate"/>
+                            <field name="benefactor_donate"/>
+                        </group>
+                        <group string="Construction data" name="construction_data" priority="2">
+                            <div/>
+                            <field name="total_land_area"/>
+                            <field name="land_length"/>
+                            <field name="land_width"/>
+                            <field name="land_origin"/>
+                            <field name="land_owner"/>
+                            <field name="authorized_person"/>
+                            <field name="total_church_area"/>
+                            <field name="church_length"/>
+                            <field name="church_width"/>
+                            <field name="main_materials"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='action_open_parent_task']" position="after">
+                <button name="open_payment_view" type="object" class="oe_stat_button" icon="fa-bars"
+                    attrs="{'invisible': [('task_payment_count', '=', 0)]}"
+                    groups="!project_custom.group_project_only_user">
+                    <field string="Payments" name="task_payment_count" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_view_tree_extend" model="ir.ui.view">
+        <field name="name">project.task.view.tree.extend</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="name_seq"/>
+            </xpath>
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="create_date"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

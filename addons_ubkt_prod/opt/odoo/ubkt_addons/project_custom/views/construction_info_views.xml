@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_construction_info_view_form_extend" model="ir.ui.view">
+        <field name="name">project.task.construction.info.view.form.extend</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_assign_to_me']" position="after">
+                <!-- <button name="action_approval" string="Send to Approval" type="object" 
+                    attrs="{'invisible': [('approval_state', '!=', 'open')]}"
+                    class="oe_highlight" data-hotkey="a"/> -->
+                <button name="action_send_mail" string="Send by Email" type="object" 
+                    class="oe_highlight" data-hotkey="s"/>
+            </xpath>
+
+            <xpath expr="//field[@name='finance_promotion']" position="after">
+                <field name="construction_info"/>
+                <field name="attachment_flag"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="state_id" string="&#160;&#160;&#160;&#160;&#160;State" class="font-italic"/>
+                <field name="city" string="&#160;&#160;&#160;&#160;&#160;District" class="font-italic"/>
+                <field name="approval_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="display_consult_state" attrs="{'invisible': True}"/>
+                <field name="consult_state" attrs="{'invisible': [('display_consult_state', '=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='description_page']" position="after">
+                <page name='construction_info_form' string="Construction Information" attrs="{'invisible': [('construction_info', '=', False)]}">
+                    <group string="Opinion of the deacon board - the construction board" name="opinion_deacon_board_container">
+                        <field name="opinion_deacon_board"/>
+                    </group>
+                    <group string="Opinion of the advisor" name="opinion_advisor_container">
+                        <field name="opinion_advisor"/>
+                    </group>
+                    <group string="Opinion of the pastor" name="opinion_pastor_container">
+                        <field name="approval_state"/>
+                        <field name="opinion_pastor"/>
+                    </group>
+                </page>
+
+                <page name='attachment_form' string="Document Files" attrs="{'invisible': [('attachment_flag', '=', False)]}">
+                    <group string="Document Files" name="document_files" priority="1">
+                        <!-- <div/> -->
+                        <field name="attachment_id" widget="many2many_binary"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

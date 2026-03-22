@@ -1,0 +1,115 @@
+<odoo>
+
+    <template id="project_portal_dashboard" name="Project Portal Dashboard" >
+        <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+        <script src="/project_portal/static/js/chart.js" />
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="py-2">
+                    <div class="container">
+                        <h2>Project</h2>
+                        <br/>
+                        <table style="border:none;">
+                            <tr style="text-align:center;">
+                                <t t-foreach="project" t-as="pro">
+                                    <th t-field="pro.name"/>
+                                </t>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm">
+                              <table style="font-size:small;">
+                                  <tr>
+                                    <th></th>
+                                    <t t-foreach="project" t-as="pro">
+                                       <th style="text-align:center;" t-field="pro.name"/>
+                                    </t>
+                                  </tr>
+                                  <t t-foreach="dashboard_1" t-as="da1">
+                                      <tr>
+                                       <td style="text-align:center;" t-esc="da1['name']"/>
+                                      <t t-foreach="da1['count_task']" t-as="task">
+                                          <td style="text-align:center;"><t t-esc="task" /></td>
+                                      </t>
+                                      </tr>
+                                  </t>
+                                </table>
+                            </div>
+                            <div class="col-sm">
+                              <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <h2>Hồ Sơ Đang Xử Lý</h2>
+                        <br/>
+                        <div class="row">
+                            <t t-foreach="project_stage_task" t-as="tasks">
+                                <div class="col-sm">
+                              <table style="font-size:small;">
+                                  <tr>
+                                    <th style="text-align:center;" colspan="2"><t t-esc="tasks['name']" /></th>
+                                  </tr>
+                                  <t t-foreach="tasks['count_task']" t-as="task">
+                                      <tr>
+                                        <td><t t-esc="task['name']" /></td>
+                                        <td style="text-align:center;"><t t-esc="task['number']" /></td>
+                                      </tr>
+                                  </t>
+                                </table>
+                            </div>
+                            </t>
+                          </div>
+                    </div>
+                </section>
+            </div>
+
+        </t>
+        <script type="text/javascript">
+            var xValues = <t t-esc="year" />;
+            new Chart("myChart", {
+              type: "line",
+
+              data: {
+                labels: xValues,
+                datasets: [
+                 <t t-foreach="chart_dashboard" t-as="chart">
+                 {
+                      label: "<t t-esc="chart['project_name']" />",
+                      data: <t t-esc="chart['count_task']" />,
+                      borderColor: "<t t-esc="chart['color']" />",
+                      fill: false
+                  },
+                 </t>
+               ]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: "Báo cáo",
+                  position: 'bottom'
+                }
+              }
+            });
+        </script>
+    </template>
+
+</odoo>

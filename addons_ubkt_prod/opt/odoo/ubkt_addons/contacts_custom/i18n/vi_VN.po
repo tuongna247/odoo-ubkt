@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contacts_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-16 10:38+0000\n"
+"PO-Revision-Date: 2022-01-16 10:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contacts_custom
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__meet_last_two_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__total_last_two_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__meet_last_two_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__total_last_two_year
+msgid "2 Year Before"
+msgstr "2 năm trước"
+
+#. module: contacts_custom
+#: model:ir.model,name:contacts_custom.model_res_partner
+msgid "Contact"
+msgstr "Liên hệ"
+
+#. module: contacts_custom
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__sign_signature
+msgid "Digital Signature"
+msgstr "Chữ ký số"
+
+#. module: contacts_custom
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__sign_stamp
+msgid "Digitial Stamp"
+msgstr "Con dấu kỹ thuật số"
+
+#. module: contacts_custom
+#: model_terms:ir.ui.view,arch_db:contacts_custom.res_partner_ht_view_form_extend
+msgid "HT Information"
+msgstr "Thông tin HT"
+
+#. module: contacts_custom
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__meet_last_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__total_last_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__meet_last_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__total_last_year
+msgid "Last Year"
+msgstr "Năm ngoái"
+
+#. module: contacts_custom
+#: model_terms:ir.ui.view,arch_db:contacts_custom.res_partner_ht_view_form_extend
+msgid "The number of believers who meet regularly"
+msgstr "Số lượng tín đồ gặp gỡ thường xuyên"
+
+#. module: contacts_custom
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__meet_this_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_partner__total_this_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__meet_this_year
+#: model:ir.model.fields,field_description:contacts_custom.field_res_users__total_this_year
+msgid "This Year"
+msgstr "Năm nay"
+
+#. module: contacts_custom
+#: model_terms:ir.ui.view,arch_db:contacts_custom.res_partner_ht_view_form_extend
+msgid "Total Number of believers"
+msgstr "Tổng số tín đồ"
+
+#. module: contacts_custom
+#: model:ir.model,name:contacts_custom.model_res_users
+msgid "Users"
+msgstr "Người dùng"

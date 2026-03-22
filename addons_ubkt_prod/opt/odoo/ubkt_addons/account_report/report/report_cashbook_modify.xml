@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="web.internal_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div class="header">
+            <div class="row">
+                <div class="col-3">
+                    <span t-esc="company.name"/>
+                    <img t-attf-src="/logo.png?company={{ company.id }}" style="padding: 0px; margin: 10px; height: auto; width: 120px;" t-att-alt="company.name"/>
+                </div>
+                <div class="col-3 offset-3 text-right">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><span class="page"/></li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item"><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+          <t t-out="0"/>
+        </div>
+    </template>
+
+    <template id="report_cashbook_modify">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="25"/>
+            <t t-set="data_report_header_spacing" t-value="23"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.internal_layout">
+                <div style="font-size:16px; font-family: Times and Roman;">
+                <div class="page">
+                    <br></br>
+                    <h6 style="text-align:center;"><strong>SỔ QUỸ TIỀN MẶT ỦY BAN KIẾN THIẾT</strong></h6>
+                </div>
+                <div class="row mt32">
+                    <div class="col-4">
+                    </div>
+
+                    <div class="col-3">
+                        <strong>Từ ngày:</strong>
+                        <t t-esc="datetime.datetime.strptime(data['date_from'], '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                    </div>
+                    <div class="col-3">
+                        <strong>Đến ngày:</strong>
+                        <t t-esc="datetime.datetime.strptime(data['date_to'], '%Y-%m-%d').strftime('%d-%m-%Y')"/>
+                    </div>
+                    <div class="col-2 text-right">
+                        <strong>Đơn vị tính:</strong>
+                        VND
+                    </div>
+                </div>
+                <br/>
+
+                <table class="table table-sm table-reports">
+                    <thead>
+                        <tr class="text-center">
+                            <th style="border: 1px solid black; vertical-align: middle; width: 7%;">NGÀY</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 11%;">SỐ PHIẾU</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 8%;">CHỨNG TỪ</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 14%;">DIỄN GIẢI</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 9%;">THU VND</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 9%;">CHI VND</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 8%;">THU TẠM ỨNG</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 8%;">CHI TẠM ỨNG</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 8%;">CHUYỂN QUỸ XUẤT</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 8%;">CHUYỂN QUỸ NHẬP</th>
+                            <th style="border: 1px solid black; vertical-align: middle; width: 9%;">LOẠI QUỸ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="Accounts" t-as="account">
+                            <tr t-foreach="account['move_lines']" t-as="line" class="text-center" t-if="line['lid'] != 0">
+                                <td style="border: 1px solid black; text-align: left;vertical-align: middle;">
+                                    <span t-esc="line['ldate'].strftime('%d-%m-%Y')"/>
+                                </td>
+                                <td style="border: 1px solid black; text-align: left;vertical-align: middle;">
+                                    <span t-esc="line['move_name']"/>
+                                </td>
+                                <td style="border: 1px solid black; text-align: left;vertical-align: middle;">
+                                    <span t-esc="line['lpaper_payment_code']"/>
+                                </td>
+                                <td style="border: 1px solid black; text-align: left;vertical-align: middle;">
+                                    <span t-esc="line['lname']"/>
+                                </td>
+                                
+                                <t t-if="line['lpayment_is_advance'] == 0 and line['lpayment_is_internal_transfer'] == 0">
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['debit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                        </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['credit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                </t>
+                                <t t-if="line['lpayment_is_advance'] == 1 and line['lpayment_is_internal_transfer'] == 0">
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['debit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                        </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['credit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                </t>
+                                <t t-if="line['lpayment_is_advance'] == 0 and line['lpayment_is_internal_transfer'] == 1">
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        0
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['credit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                    </td>
+                                    <td style="border: 1px solid black; text-align: right;vertical-align: middle;">
+                                        <span t-esc="line['debit']"
+                                              t-options='{"widget": "float", "precision": 0}'/>
+                                        </td>
+                                </t>
+                                <td style="border: 1px solid black; vertical-align: middle;">
+                                    <t t-if="line['journal_name'] == 'Construction'">
+                                        <span>Xây dựng</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="line['journal_name']"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+
+                </table>
+                <br/>
+                <div class="row mt32">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
+                        <div class="row mt32">
+                            <hr/>
+                            <div class="col-5 text-center">
+                                <strong>Ngày báo cáo: &#160;&#160;&#160;&#160;</strong>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>
+                            </div>
+                            <div class="col-7 text-right">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">TỔNG THU</td>
+                                            <td><span t-esc="l_total['l_in_total_1']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">TỔNG CHI</td>
+                                            <td><span t-esc="l_total['l_in_total_2']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">THU TẠM ỨNG</td>
+                                            <td><span t-esc="l_total['l_in_total_3']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">CHI TẠM ỨNG</td>
+                                            <td><span t-esc="l_total['l_in_total_4']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">QUỸ XUẤT</td>
+                                            <td><span t-esc="l_total['l_in_total_6']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">QUỸ NHẬP</td>
+                                            <td><span t-esc="l_total['l_in_total_5']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">TỒN TRONG THÁNG</td>
+                                            <td><span t-esc="l_total['l_in_total_1'] - l_total['l_in_total_2'] + l_total['l_in_total_3'] - l_total['l_in_total_4'] + l_total['l_in_total_5'] - l_total['l_in_total_6']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">TỒN HỆ THỐNG</td>
+                                            <td><span t-esc="l_total['l_toatl_1'] - l_total['l_toatl_2'] + l_total['l_toatl_3'] - l_total['l_toatl_4'] + l_total['l_toatl_5'] - l_total['l_toatl_6']"
+                                              t-options='{"widget": "float", "precision": 0}'/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <br/> <br/>
+                        
+                    </div>
+                </div>
+                <div class="row mt32" style="text-align:center;">
+                    <div class="col-6" >
+                        CHUYÊN TRÁCH ỦY BAN KIẾN THIẾT
+                    </div>
+                    <div class="col-6">
+                        <div>KẾ TOÁN</div>
+                    </div>
+                </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

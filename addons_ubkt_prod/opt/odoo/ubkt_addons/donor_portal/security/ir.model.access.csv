@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_donor_portal_payment,donor.portal.payment,account.model_account_payment,base.group_portal,1,0,0,0
+access_donor_portal_employee,donor.portal.employee,hr.model_hr_employee,base.group_portal,1,0,0,0
+access_donor_portal_task,donor.portal.task,project.model_project_task,base.group_portal,1,0,0,0

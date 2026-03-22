@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_account_payment_document">
+        <t t-call="web.external_layout">
+            <t t-if="o">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <t t-if="o.payment_type == 'inbound'">
+                    <div class="page" style="border:0; margin: 0; background-size:65rem 57rem; width:65rem; height:42rem;">
+                      <div><!-- Row -->
+                        <p t-if="o.signature and o.approval_id.sign_stamp" id="signature_stamp" name="signature_stamp">
+                          <div style="float:left;width:27rem;text-align:center;padding-left:4rem;">
+                              <img t-att-src="image_data_uri(o.approval_id.sign_stamp)" style="margin:0;max-height: 25rem; max-width: 27rem;"/>
+                          </div>
+                        </p>
+                        <p t-else="">
+                          <div style="float:left;width:27rem;text-align:center;padding-left:4rem;">
+                            <img src='/account_custom/static/img/header_payment.png' data-mimetype="image/png" style="margin:0;max-height: 25rem; max-width: 27rem;" /> 
+                          </div>
+                        </p>
+                        
+                        <div style="float:right;width:26rem;height:0.5rem;padding-right:5rem;padding-top:1rem;text-align:right;">
+                            Mã Phiếu: <span t-esc="o.paper_payment_code"></span><div/>
+                            Số: <span t-esc="o.name_seq"></span>/UBKT.TLH
+                        </div>
+                        
+                        <div style="padding-bottom:1rem;"></div>
+                      </div>
+                      
+                      <div><!-- Row -->
+                          <div class="cell" 
+                            style="font-weight: bold !important;font-size: 38px !important;text-align:center;padding-top:9rem">
+                            BIÊN NHẬN
+                          </div>
+                      </div>
+                      <div style="font-size: 18px !important;padding-top:0.5rem;padding-left:5rem;padding-right:5rem;">
+                        <ul>
+                          <li>Nhận của: <span t-esc="o.benefactor_id.name"></span></li>
+                          <li>Số tiền: <span t-esc="o.format_quantity(o.amount, 0)"></span> VND</li>
+                          <li>Viết bằng chữ: <span t-esc="o.translate_money_string(o.amount)"></span></li>
+                          <li>Dâng về việc: <span t-esc="o.description"></span></li>
+                        </ul>
+                      </div>
+                      <div class="cell"><!-- Row -->
+                          <div style="font-size: 18px !important;float:right;height:0.5rem;text-align:right;padding-right:5rem;padding-bottom:2rem;">
+                              TP.Hồ Chí Minh, <span t-field="o.date" t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/>
+                          </div>
+                      </div>
+                      <div style="font-size: 18px !important; font-weight: bold !important;">
+                        <div><!-- Row -->
+                          <div style="float:left;text-align:left;padding-left:5rem;">
+                              CHUYÊN TRÁCH UBKT-TLH &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                              KẾ TOÁN &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                              THỦ QUỸ
+                          </div>
+                        </div>
+                        <p t-if="o.signature" id="signature" name="Signature">
+                          <div style="padding-bottom:2rem;"></div>
+                          <div>
+                            <div style="float:left;text-align:left;padding-left:5rem;">
+                                <img t-att-src="image_data_uri(o.approval_id.sign_signature)" style="max-width: 21rem;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                <img t-att-src="image_data_uri(o.accountant_id.sign_signature)" style="max-width: 21rem;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                <img t-att-src="image_data_uri(o.treasurer_id.sign_signature)" style="max-width: 21rem;"/>
+                            </div>
+                          </div>
+                        </p>
+                      </div>
+                    </div>
+                </t>
+                <t t-else=""> <!-- PC -->
+                  <div class="page" style="border:0; margin: 0; background-size:65rem 57rem; width:65rem; height:42rem;">
+                    <div><!-- Row -->
+                      <p t-if="o.signature and o.approval_id.sign_stamp" id="signature_stamp" name="signature_stamp">
+                        <div style="float:left;width:27rem;text-align:center;padding-left:4rem;">
+                            <img t-att-src="image_data_uri(o.approval_id.sign_stamp)" style="margin:0;max-height: 25rem; max-width: 27rem;"/>
+                        </div>
+                      </p>
+                      <p t-else="">
+                        <div style="float:left;width:27rem;text-align:center;padding-left:4rem;">
+                          <img src='/account_custom/static/img/header_payment.png' data-mimetype="image/png" style="margin:0;max-height: 25rem; max-width: 27rem;" /> 
+                        </div>
+                      </p>
+                      
+                      <div style="float:right;width:26rem;height:0.5rem;padding-right:5rem;padding-top:1rem;text-align:right;">
+                          Mã Phiếu: <span t-esc="o.paper_payment_code"></span><div/>
+                          Số: <span t-esc="o.name_seq"></span>/UBKT.TLH
+                      </div>
+                      
+                      <div style="padding-bottom:1rem;"></div>
+                    </div>
+                    <div><!-- Row -->
+                      <div class="cell" 
+                        style="font-weight: bold !important;font-size: 38px !important;text-align:center;padding-top:9rem">
+                        PHIẾU CHI
+                      </div>
+                    </div>
+                    <div style="font-size: 18px !important;padding-left:5rem;padding-right:5rem;">
+                      <ul>
+                        <li>Họ, tên người nhận: <span t-esc="o.received_person_text"></span></li>
+                        <li>Lý do chi: <span t-esc="o.description"></span></li>
+                        <li>Số tiền: <span t-esc="o.format_quantity(o.amount, 0)"></span> VND</li>
+                        <li>Viết bằng chữ: <span t-esc="o.translate_money_string(o.amount)"></span></li>
+                        <li>Kèm theo ............................................. chứng từ gốc</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div style="font-size: 18px !important;float:right;height:0.5rem;text-align:right;padding-right:5rem;padding-bottom:2rem;">
+                        TP.Hồ Chí Minh, <span t-field="o.date" t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/>
+                      </div>
+                    </div>
+                    <!-- <div style="padding-bottom:1rem;"></div> -->
+                    <div style="font-size: 18px !important; font-weight: bold !important;">
+                      <div><!-- Row -->
+                        <div style="float:left;text-align:left;padding-left:5rem;">
+                            CHUYÊN TRÁCH UBKT-TLH &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                            Người giao tiền &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                            Người nhận tiền
+                        </div>
+                      </div>
+                      <p t-if="o.signature" id="signature" name="Signature">
+                        <div style="padding-bottom:1rem;"></div>
+                        <div>
+                          <div style="float:left;text-align:left;padding-left:5rem;">
+                              <img t-att-src="image_data_uri(o.approval_id.sign_signature)" style="max-width: 21rem;"/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                              <img t-att-src="image_data_uri(o.delivered_person.sign_signature)" style="max-width: 21rem;"/>&#160;&#160;
+                              <img t-att-src="image_data_uri(o.received_person.sign_signature)" style="max-width: 21rem;"/>
+                          </div>
+                        </div>
+                      </p>
+                    </div>
+                    
+                  </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_account_payment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <!-- <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/> -->
+                <t t-set="lang" t-value="o.approval_id.lang"/>
+                <t t-call="account_custom.report_account_payment_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

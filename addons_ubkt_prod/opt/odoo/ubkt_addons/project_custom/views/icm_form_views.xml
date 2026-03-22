@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_icm_view_form_extend" model="ir.ui.view">
+        <field name="name">project.task.icm.view.form.extend</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='finance_promotion']" position="after">
+                <field name="icm_flag"/>
+            </xpath>
+
+            <xpath expr="//page[@name='description_page']" position="after">
+                <page name='icm_form' string="ICM form" attrs="{'invisible': [('icm_flag', '=', False)]}">
+                    <group name="icm_container_6" col="2">
+                        <group string="Notes" name="icm_notes">
+                            <div/>
+                            <field name="icm_exchange_rate"/>
+                        </group>
+                    </group>
+                    <group name="icm_container_1" col="2">
+                        <group string="Management Information" name="icm_management_info">
+                            <div/>
+                            <field name="icm_spintend_name"/>
+                            <field name="icm_spintend_phone"/>
+                            <field name="icm_spintend_email"/>
+                            <field name="icm_spintend_marital"/>
+                        </group>
+                        <group string="&#160;" name="management_info_2">
+                            <div/>
+                            <field name="icm_spintend_children"/>
+                            <field name="icm_spintend_no_years"/>
+                            <field name="icm_spintend_participate"/>
+                            <field name="icm_spintend_serving"/>
+                        </group>
+                    </group>
+                    <group name="icm_container_2_1" col="2">
+                        <group string="Construction Plan" name="icm_construction_plan">
+                            <div/>
+                            <field name="icm_completed_works"/>
+                            <field name="icm_construct_size"/>
+                            <field name="icm_construct_length"/>
+                            <field name="icm_construct_width"/>
+                        </group>
+                        <group string="&#160;" name="icm_construction_plan">
+                            <div/>
+                            <field name="icm_construct_scale"/>
+                            <field name="icm_land_size"/>
+                            <field name="icm_land_length"/>
+                            <field name="icm_land_width"/>
+                        </group>
+                    </group>
+                    <group name="icm_container_3" col="2">
+                        <group string="Community" name="icm_community">
+                            <div/>
+                            <field name="icm_near_town"/>
+                            <field name="icm_near_branch"/>
+                            <field name="icm_population_area"/>
+                        </group>
+                        <group string="&#160;" name="icm_community_2">
+                            <div/>
+                            <field name="icm_town_distance"/>
+                            <field name="icm_branch_distance"/>
+                        </group>
+                        
+                    </group>
+                    <group name="icm_container_3_1" col="2">
+                        <group string="Land Ownership" name="icm_land_ownership">
+                            <div/>
+                            <field name="icm_land_ownership"/>
+                            <field name="icm_land_other" attrs="{'invisible': [('icm_land_ownership', '!=', 'others')]}"/>
+                            <field name="icm_land_obtain"/>
+                        </group>
+                        <group string="Finance Details" name="icm_finance_details">
+                            <div/>
+                            <field name="icm_total_build_cost_vnd"/>
+                            <field name="icm_total_build_cost_usd"/>
+                        </group>
+                    </group>
+                    <group name="icm_container_4" col="2">
+                        <group string="Congregation" name="icm_congregation">
+                            <div/>
+                            <field name="icm_official_believers"/>
+                            <field name="icm_attend_num"/>
+                            <field name="icm_main_language"/>
+                            <field name="icm_monthly_donate"/>
+                        </group>
+                        <group name="icm_container_4_1" col="2">
+                            <group string="&#160;" name="icm_congregation_2">
+                                <div/>
+                                <field name="icm_official_adult"/>
+                                <field name="icm_attend_adult"/>
+                                <field name="icm_published_year"/>
+                            </group>
+                            <group string="&#160;" name="icm_congregation_3">
+                                <div/>
+                                <field name="icm_official_children"/>
+                                <field name="icm_attend_children"/>
+                            </group>
+                        </group>
+                    </group>
+                    <group name="icm_container_5" col="2">
+                        <group string="Dedication of the church" name="icm_dedication">
+                            <div/>
+                            <field name="icm_give_effort_vnd"/>
+                            <field name="icm_donate_materials_vnd"/>
+                            <field name="icm_donate_cash_vnd"/>
+                            <field name="icm_donate_land_vnd"/>
+                        </group>
+                        <group string="&#160;" name="icm_dedication_2">
+                            <div/>
+                            <field name="icm_give_effort_usd"/>
+                            <field name="icm_donate_materials_usd"/>
+                            <field name="icm_donate_cash_usd"/>
+                            <field name="icm_donate_land_usd"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

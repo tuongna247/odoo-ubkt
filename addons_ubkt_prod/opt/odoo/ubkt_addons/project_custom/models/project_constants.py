@@ -1,0 +1,4 @@
+# -*- coding: utf-8 -*-
+STAGE_ID_PASTOR = 68
+STAGE_ID_CONSULT = 69
+STAGE_ID_INPUT_NEW = 1

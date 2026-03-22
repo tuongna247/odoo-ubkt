@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_project_custom" model="mail.template">
+            <field name="name">Project: Send by email</field>
+            <field name="model_id" ref="project_custom.model_project_task"/>
+            <field name="subject">{{ object.name }} ({{ object.name_seq }})</field>
+            <!-- <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field> -->
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    
+</div>
+            </field>
+            <!-- <field name="report_name">{{ (object.name or '').replace('/','_') }}</field> -->
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+        <record id="email_template_project_task_approval" model="mail.template">
+            <field name="name">Project: Send to Approval</field>
+            <field name="model_id" ref="project_custom.model_project_task"/>
+            <field name="subject">{{ object.company_id.name }} Project (Ref {{ object.name_seq or 'n/a' }})</field>
+            <field name="partner_to">{{ object.approval_id.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear <t t-out="object.approval_id.name or ''">Azure Interior</t><br/><br/>
+                        Please review the attachment and approve for the process next step.
+
+                        <!-- <div style="margin: 32px 0px 32px 0px; text-align: center;">
+                            <a t-att-href="object._get_share_url(redirect=False)"
+                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                <t> Review &amp; Approve</t>
+                            </a>
+                        </div>
+
+                        Best regards, -->
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="project_custom.action_report_project_custom"/>
+            <field name="report_name">{{ (object.name_seq or '').replace('/','-') }}</field>
+            <field name="lang">{{ object.approval_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="email_template_project_task_consult" model="mail.template">
+            <field name="name">Project: Send consultations</field>
+            <field name="model_id" ref="project_custom.model_project_task"/>
+            <field name="subject">{{ object.company_id.name }} Project (Ref {{ object.name_seq or 'n/a' }})</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear <t t-out="object.partner_id.name or ''">Azure Interior</t><br/><br/>
+                        Here are our consultations:<br/>
+                        1/ Opinion of the deacon board - the construction board:<br/>
+                        <t t-out="object.opinion_deacon_board or ''"></t><br/>
+                        2/ Opinion of the advisor:<br/>
+                        <t t-out="object.opinion_advisor or ''"></t><br/>
+                        3/ Opinion of the pastor:<br/>
+                        <t t-out="object.opinion_pastor or ''"></t><br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="project_custom.action_report_project_custom"/>
+            <field name="report_name">{{ (object.name_seq or '').replace('/','-') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

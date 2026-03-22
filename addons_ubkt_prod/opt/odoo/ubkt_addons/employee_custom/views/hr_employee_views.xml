@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_employee_view_form_extend" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.extend</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="working_mode"/>
+            </xpath>
+            <xpath expr="//div[@name='div_km_home_work']" position="after">
+                <field name="hobby"/>
+            </xpath>
+            <xpath expr="//field[@name='country_of_birth']" position="after">
+                <field name="is_foreign"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

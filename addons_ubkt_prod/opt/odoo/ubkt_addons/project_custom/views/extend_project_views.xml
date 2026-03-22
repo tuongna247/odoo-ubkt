@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_task_kanban_extend" model="ir.ui.view">
+        <field name="name">project.task.kanban.view.form.extend</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@widget='attachment_image']" position="replace">
+                <field name="displayed_image_id" widget="custom_attachment_image"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

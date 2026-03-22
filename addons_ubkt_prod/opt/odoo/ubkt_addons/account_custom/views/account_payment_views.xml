@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_payment_view_form_extend" model="ir.ui.view">
+        <field name="name">account.payment.view.form.extend</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Register Payment">
+                    <header>
+                        <button name="action_accountant" string="Approved by Accountant" type="object" class="oe_highlight" 
+                                attrs="{'invisible': ['|', ('approved_accountant', '=', True),
+                                                        ('user_role', '!=', 'accountant')]}" data-hotkey="c"/>
+                        <button name="action_treasurer" string="Approved by Treasurer" type="object" class="oe_highlight" 
+                                attrs="{'invisible': ['|', ('approved_treasurer', '=', True),
+                                                        ('user_role', '!=', 'treasurer')]}" data-hotkey="t"/>
+                        <button name="action_approval" string="Send to Approval" type="object" class="oe_highlight" 
+                                attrs="{'invisible': ['|', '|', '|',
+                                                       ('approved_accountant', '!=', True),
+                                                       ('approved_treasurer', '!=', True),
+                                                       ('state', '!=', 'draft'),
+                                                       ('user_role', '!=', 'accountant')]}" data-hotkey="a"/>
+                        
+                        <!-- <button name="action_post" string="Confirm" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', '|', ('approved_accountant', '!=', True), ('approved_treasurer', '!=', True), ('state', '!=', 'draft')]}" data-hotkey="v"/> -->
+                        <button name="action_post" string="Confirm" type="object" class="oe_highlight"
+                                attrs="{'invisible': [True]}"/>
+                        <button name="action_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('state', 'not in', ('draft', 'sent'))]}" data-hotkey="z"/>
+                        <!-- <button name="action_draft" string="Reset To Draft" type="object" class="btn btn-secondary"
+                                attrs="{'invisible': [('state', 'not in', ('posted', 'cancel'))]}"
+                                groups="account.group_account_invoice" data-hotkey="w"/> 
+                        <button name="mark_as_sent" string="Mark as Sent" type="object" data-hotkey="q"
+                                attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('payment_method_code', '!=', 'manual')]}"/>
+                        <button name="unmark_as_sent"  string="Unmark as Sent" type="object" data-hotkey="k"
+                                attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', False), ('payment_method_code', '!=', 'manual')]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
+
+                    <div class="alert alert-info text-center" role="alert" attrs="{'invisible': ['|','|',('paired_internal_transfer_payment_id','!=',False),('is_internal_transfer','=',False),('state','!=','draft')]}">
+                        A second payment will be created automatically in the destination journal.
+                    </div>
+                    <div class="alert alert-warning text-center" role="alert" attrs="{
+                            'invisible': ['|', '|', ('is_internal_transfer','=',False), ('require_partner_bank_account', '=', False), ('partner_bank_id', '!=', False)]}">
+                        The selected payment method requires a bank account but none is set on
+                        <button class="oe_link alert-link" type="object" name="action_open_destination_journal" style="padding: 0; vertical-align: baseline;">the destination journal</button>.
+                    </div>
+                    <sheet>
+                        <!-- Invisible fields -->
+                        <field name="id" invisible="1"/>
+                        <field name="is_move_sent" invisible="1"/>
+                        <field name="is_reconciled" invisible="1"/>
+                        <field name="is_matched" invisible="1"/>
+                        <field name="payment_method_code" invisible="1"/>
+                        <field name="show_partner_bank_account" invisible="1"/>
+                        <field name="require_partner_bank_account" invisible="1"/>
+                        <field name="hide_payment_method_line" invisible="1"/>
+                        <field name="available_payment_method_line_ids" invisible="1"/>
+                        <field name="suitable_journal_ids" invisible="1"/>
+                        <field name="country_code" invisible="1"/>
+                        <field name="partner_type" invisible="1"/>
+                        <field name="posted_before" invisible="1"/>
+                        <field name="reconciled_invoices_type" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="paired_internal_transfer_payment_id" invisible="1"/>
+                        <field name="user_role" invisible="1"/>
+    
+                        <div class="oe_button_box" name="button_box">
+                            <!-- Invoice stat button -->
+                            <button name="button_open_invoices" type="object"
+                                    class="oe_stat_button" icon="fa-bars"
+                                    attrs="{'invisible': [('reconciled_invoices_count','=', 0)]}">
+                                <field name="reconciled_invoices_count"/>
+                                <span attrs="{'invisible': ['|',('reconciled_invoices_type','!=','invoice'),('reconciled_invoices_count','&gt;', 1)]}">Invoice</span>
+                                <span attrs="{'invisible': ['|',('reconciled_invoices_type','!=','invoice'),('reconciled_invoices_count','&lt;=', 1)]}">Invoices</span>
+                                <span attrs="{'invisible': ['|',('reconciled_invoices_type','=','invoice'),('reconciled_invoices_count','&gt;', 1)]}">Credit Note</span>
+                                <span attrs="{'invisible': ['|',('reconciled_invoices_type','=','invoice'),('reconciled_invoices_count','&lt;=', 1)]}">Credit Notes</span>
+                            </button>
+    
+                            <!-- Bill stat button -->
+                            <button name="button_open_bills" type="object"
+                                    class="oe_stat_button" icon="fa-bars"
+                                    attrs="{'invisible': [('reconciled_bills_count','=', 0)]}">
+                                <field name="reconciled_bills_count"/>
+                                <span attrs="{'invisible': [('reconciled_bills_count','&gt;', 1)]}">Bill</span>
+                                <span attrs="{'invisible': [('reconciled_bills_count','&lt;=', 1)]}">Bills</span>
+                            </button>
+    
+                            <!-- Statement stat button -->
+                            <button name="button_open_statements" type="object"
+                                    class="oe_stat_button" icon="fa-bars"
+                                    attrs="{'invisible': [('reconciled_statements_count','=', 0)]}">
+                                <field name="reconciled_statements_count"/>
+                                <span attrs="{'invisible': [('reconciled_statements_count','&gt;', 1)]}">Statement</span>
+                                <span attrs="{'invisible': [('reconciled_statements_count','&lt;=', 1)]}">Statements</span>
+                            </button>
+    
+                            <!-- Journal Entry  button -->
+                            <button name="button_open_journal_entry" type="object" class="oe_stat_button" icon="fa-bars">
+                                Journal Entry
+                            </button>
+                        </div>
+    
+                        <widget name="web_ribbon" text="Invoicing App Legacy"
+                                bg_color="bg-info"
+                                attrs="{'invisible': [('state', '!=', 'invoicing_legacy')]}"
+                                tooltip="This payment has been generated through the Invoicing app, before installing Accounting. It has been disabled by the 'Invoicing Switch Threshold Date' setting so that it does not impact your accounting."
+                        />
+    
+                        <!-- <div class="oe_title">
+                            <h1 attrs="{'invisible': [('state', '!=', 'draft')]}"><span>Draft</span></h1>
+                            <h1 attrs="{'invisible': [('state', '=', 'draft')]}"><field name="name" readonly="1"/></h1>
+                        </div> -->
+                        <group name="group_types">
+                            <group>
+                                <field name="payment_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="is_advance"/>
+                                <field name="is_internal_transfer" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <group name="group_payment_type" col="2">
+                            <group>
+                                <field name="date" attrs="{'readonly': [True]}"/>
+                                <field name="foreign_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="exchange_rate" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="name_seq"/>
+                                <field name="pay_currency_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="currency_id"
+                                           options="{'no_create': True, 'no_open': True}"
+                                           groups="base.group_multi_currency" invisible="1"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="amount" widget="monetary"/>
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group name="group1">
+                                <field name="paper_payment_code" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="project_task_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            
+                            <group name="group2">
+                                <field name="approval_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <!-- <field name="enter_fund"/> -->
+                                <field name="journal_id"
+                                       domain="[('type', 'in', ('bank', 'cash'))]"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="destination_journal_id" context="{'default_partner_id': partner_id}"
+                                       attrs="{'invisible': [('is_internal_transfer', '=', False)],
+                                       'readonly': [('state', '!=', 'draft')], 'required': [('is_internal_transfer', '=', True),('state', '=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <group col="4">
+                            <group>
+                                <field name="partner_id" string="Branch" attrs="{'invisible': [True]}"/>
+                                <field name="partner_id_prj" string="Customer"/>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="state_id"/>
+                            </group>
+                            <group>
+                                <field name="city" string="District"/>
+                            </group>
+                        </group>
+                        <group col="2">
+                            <group>
+                                <field name="benefactor_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="delivered_person" attrs="{'invisible': [('payment_type', '=', 'inbound')], 'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="delivered_person_text" attrs="{'invisible': [('payment_type', '=', 'outbound')], 'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="is_foreign"/>
+                                <field name="received_person" attrs="{'invisible': [('payment_type', '=', 'outbound')], 'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="received_person_text" attrs="{'invisible': [('payment_type', '=', 'inbound')], 'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="ref" string="Memo" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group col="2">
+                            <group col="3">
+                                <group>
+                                    <field name="approved_accountant"/>
+                                </group>
+                                <group>
+                                    <field name="accountant_id" colspan="4" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                                <group></group>
+                            </group>
+                            <group col="3">
+                                <group>
+                                    <field name="approved_treasurer"/>
+                                </group>
+                                <group>
+                                    <field name="treasurer_id" colspan="4" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                                <group></group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="account_payment_list_view_form_extend" model="ir.ui.view">
+        <field name="name">account.payment.list.view.form.extend</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="name_seq"/>
+                <field name="paper_payment_code"/>
+                <field name="project_task_id"/>
+                <field name="description"/>
+            </xpath>
+            <!-- <xpath expr="//field[@name='journal_id']" position="replace">
+                <field name="journal_id" invisible="1"/>
+            </xpath> -->
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_method_line_id']" position="replace">
+                <field name="payment_method_line_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search_extend" model="ir.ui.view">
+        <field name="name">view.account.payment.search.extend</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='date']" position="after">
+                <separator/>
+                <filter name="filter_send" string="Send" domain="[('payment_type', '=', 'outbound')]"/>
+                <filter name="filter_receive" string="Receive" domain="[('payment_type', '=', 'inbound')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_by_state" context="{'group_by':'state_id'}"/>
+                    <filter string="District" name="group_district" context="{'group_by':'city'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

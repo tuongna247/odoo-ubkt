@@ -1,0 +1,798 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-16 04:36+0000\n"
+"PO-Revision-Date: 2022-01-16 04:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.mail_notification_approve_online
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "&amp;times;"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.actions.report,print_report_name:account_custom.action_report_account_payment
+msgid "(object.state in ('draft', 'sent'))"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "/UBKT.TLH"
+msgstr ""
+
+#. module: account_custom
+#: model:mail.template,body_html:account_custom.email_template_account_approval
+msgid ""
+"<div style=\"box-sizing:border-box;font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin: 0px; padding: 0px;\">\n"
+"    <p style=\"box-sizing:border-box;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear <t t-out=\"object.approval_id.name or ''\" data-oe-t-inline=\"true\" style=\"box-sizing:border-box;\">Azure Interior</t><br style=\"box-sizing:border-box;\"><br style=\"box-sizing:border-box;\">\n"
+"        Thank you for your payment.\n"
+"        Here is your payment receipt <strong t-out=\"(object.name_seq or '').replace('/','-') or ''\" style=\"box-sizing:border-box;font-weight:bolder;\">BNK1-2021-05-0002</strong> amounting\n"
+"        to <strong t-out=\"format_amount(object.amount, object.currency_id) or ''\" style=\"box-sizing:border-box;font-weight:bolder;\">$ 10.00</strong> from <t t-out=\"object.company_id.name or ''\" data-oe-t-inline=\"true\" style=\"box-sizing:border-box;\">YourCompany</t>.\n"
+"        <br style=\"box-sizing:border-box;\"><br style=\"box-sizing:border-box;\">\n"
+"        Do not hesitate to contact us if you have any questions.\n"
+"    </p>\n"
+"</div>\n"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-check\"/> Accept &amp; Sign"
+msgstr "<i class=\"fa fa-check\"/> Chấp nhận &amp; Ký tên"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-comment\"/> Contact us to get a new Payment Approval."
+msgstr "<i class=\"fa fa-comment\"/> Liên hệ với chúng tôi để nhận được Phê duyệt thanh toán mới."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-comment\"/> Feedback"
+msgstr "<i class=\"fa fa-comment\"/> Phản hồi"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-comment\"/> Send message"
+msgstr "<i class=\"fa fa-comment\"/> Gửi tin nhắn"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-download\"/> Download"
+msgstr "<i class=\"fa fa-download\"/> Tải xuống"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-print\"/> Print"
+msgstr "<i class=\"fa fa-print\"/> In"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<i class=\"fa fa-times\"/> Reject"
+msgstr "<i class=\"fa fa-times\"/> Từ chối"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\""
+" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/><span class=\"d-none "
+"d-md-inline\"> Posted</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\""
+" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/><span class=\"d-none "
+"d-md-inline\"> Đã đăng</span></span>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\""
+" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/><span class=\"d-none "
+"d-md-inline\"> Waiting for Confirm</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\""
+" aria-label=\"Opened\" title=\"Opened\" role=\"img\"/><span class=\"d-none "
+"d-md-inline\"> Đang chờ xác nhận</span></span>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<span>Accepted on the behalf of:</span>"
+msgstr "<span>Được chấp nhận thay mặt cho:</span>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<span>By signing this proposal, I agree to the following terms:</span>"
+msgstr "<span>Bằng cách ký tên vào đề xuất này, tôi đồng ý với các điều khoản sau:</span>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<span>For an amount of:</span>"
+msgstr "<span>Với một lượng:</span>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<strong class=\"text-muted\">Salesperson</strong>"
+msgstr "<strong class=\"text-muted\">Nhân viên bán hàng</strong>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<strong>Thank You!</strong><br/>"
+msgstr "<strong>Cám ơn!</strong><br/>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "<strong>This Payment Approval has been canceled.</strong>"
+msgstr "<strong>Phê duyệt Thanh toán này đã bị hủy.</strong>"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Accept &amp; Sign"
+msgstr "Chấp nhận &amp; Ký tên"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__access_warning
+msgid "Access warning"
+msgstr "Cảnh báo truy cập"
+
+#. module: account_custom
+#: model:ir.actions.report,name:account_custom.action_report_account_payment
+#: model:ir.model,name:account_custom.model_account_payment
+msgid "Account Payment"
+msgstr "Tài khoản thanh toán"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_needaction
+msgid "Action Needed"
+msgstr "Hành động cần thiết"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_ids
+msgid "Activities"
+msgstr "Các hoạt động"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Hành động ngoại lệ"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_state
+msgid "Activity State"
+msgstr "Trạng thái hoạt động"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Biểu tượng kiểu hoạt động"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__approval_id
+msgid "Approval"
+msgstr "Phê duyệt"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_attachment_count
+msgid "Attachment Count"
+msgstr "Số lượng tập tin đính kèm"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Biên nhận"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__partner_id
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Benefactor"
+msgstr "Nhà hảo tâm"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.mail_notification_approve_online
+msgid "Best regards,"
+msgstr "Trân trọng,"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Chuyên Trách UBKT-TLH"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__campaign_id
+msgid "Campaign"
+msgstr "Chiến dịch"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Cancel"
+msgstr "Hủy bỏ"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Close"
+msgstr "Đóng"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Contact"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__access_url
+msgid "Customer Portal URL"
+msgstr "Đường link cổng thông tin khách hàng"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__signed_on
+msgid "Date of the signature."
+msgstr "Ngày của chữ ký."
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__define_class
+msgid "Define Class"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Download"
+msgstr "Tải xuống"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Dâng về việc:"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_follower_ids
+msgid "Followers"
+msgstr "Người theo dõi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Người theo dõi (Đối tác)"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font biểu tượng ví dụ: fa-tasks"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__has_message
+msgid "Has Message"
+msgstr "Có tin nhắn"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "History"
+msgstr "Lịch sử"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "HỘI THÁNH TIN LÀNH VIỆT NAM"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_exception_icon
+msgid "Icon"
+msgstr "Biểu tượng"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Biểu tượng để chỉ ra một hoạt động ngoại lệ."
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_needaction
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Nếu chọn, các tin nhắn mới yêu cầu sự có mặt của bạn."
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_has_error
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Nếu đánh dấu thì một số thông điệp có lỗi."
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Invalid order."
+msgstr "Đơn hàng không hợp lệ."
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Invalid signature data."
+msgstr "Dữ liệu chữ ký không hợp lệ."
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_is_follower
+msgid "Is Follower"
+msgstr "Trở thành người theo dõi"
+
+#. module: account_custom
+#: model:ir.model,name:account_custom.model_account_move
+msgid "Journal Entry"
+msgstr "Bút toán sổ nhật ký"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Tệp đính kèm chính"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Mark as Sent"
+msgstr "Đánh dấu là Đã gửi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__medium_id
+msgid "Medium"
+msgstr "Trung bình"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Memo"
+msgstr "Ghi chú"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_has_error
+msgid "Message Delivery error"
+msgstr "Thông báo gửi đi gặp lỗi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_ids
+msgid "Messages"
+msgstr "Thông báo"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Thời hạn hoạt động của tôi"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__signed_by
+msgid "Name of the person that signed the Payment."
+msgstr "Tên của người đã ký Thanh toán."
+
+#. module: account_custom
+#: code:addons/account_custom/models/account_payment.py:0
+#: code:addons/account_custom/models/account_payment.py:0
+#: code:addons/account_custom/models/account_payment.py:0
+#, python-format
+msgid "New"
+msgstr "Mới"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sự kiện lịch hoạt động tiếp theo"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Hạn chót cho hành động kế tiếp"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_summary
+msgid "Next Activity Summary"
+msgstr "Tóm tắt hoạt động tiếp theo"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_type_id
+msgid "Next Activity Type"
+msgstr "Kiểu hoạt động kế tiếp"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Nhận của:"
+msgstr ""
+
+#. module: account_custom
+#: code:addons/account_custom/models/account_move.py:0
+#, python-format
+msgid ""
+"No journal could be found in company %(company_name)s for any of those "
+"types: %(journal_types)s"
+msgstr ""
+"Không có tạp chí nào có thể được tìm thấy trong công ty %(company_name)s cho bất kỳ ai trong số đó "
+"types: %(journal_types)s"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Số lượng hành động"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_has_error_counter
+msgid "Number of errors"
+msgstr "Số lỗi"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Số thông báo cần xử lý"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Số lượng tin gửi đi bị lỗi"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Số tin chưa đọc"
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Order Date"
+msgstr "Ngày đặt hàng"
+
+#. module: account_custom
+#: code:addons/account_custom/models/account_payment.py:0
+#, python-format
+msgid "Other"
+msgstr "Khác"
+
+#. module: account_custom
+#: code:addons/account_custom/models/account_payment.py:0
+#, python-format
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Payment Approval"
+msgstr "Phê duyệt thanh toán"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid "Payment Approval #"
+msgstr "Phê duyệt thanh toán"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid "Payment Approval Date"
+msgstr "Ngày phê duyệt Thanh toán"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_home_payment_approval
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid "Payment Approvals"
+msgstr "Phê duyệt thanh toán"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__name_seq
+msgid "Payment Code"
+msgstr "Mã thanh toán"
+
+#. module: account_custom
+#: model:mail.template,name:account_custom.email_template_account_approval
+msgid "Payment Receipt: Send to approval"
+msgstr ""
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Payment is approved by %s"
+msgstr "Thanh toán được chấp nhận bởi %s"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__access_url
+msgid "Portal Access URL"
+msgstr "URL truy cập cổng thông tin"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Print"
+msgstr "In"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__project_task_id
+msgid "Project ID"
+msgstr "ID Dự án"
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Reference"
+msgstr "Tài liệu tham khảo"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Reject This Payment Approval"
+msgstr "Từ chối Phê duyệt Thanh toán này"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Reset To Draft"
+msgstr "Đặt lại thành bản nháp"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__activity_user_id
+msgid "Responsible User"
+msgstr "Người phụ trách"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.mail_notification_approve_online
+msgid "Review &amp; Approve"
+msgstr "Kiểm tra lại &amp; Chấp thuận"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.mail_notification_approve_online
+msgid "Review, Approve &amp; Sign Payment"
+msgstr "Kiểm tra lại, Chấp thuận &amp; Ký thanh toán"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Lỗi gửi SMS"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__access_token
+msgid "Security Token"
+msgstr "Mã bảo mật"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__approval_id
+msgid "Select a approval user "
+msgstr "Chọn người phê duyệt"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__partner_id
+msgid "Select a benefactor "
+msgstr "Chọn nhà hảo tâm"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__project_task_id
+msgid "Select project id "
+msgstr "Chọn ID dự án"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Send to Approval"
+msgstr "Gửi đến Phê duyệt"
+
+#. module: account_custom
+#: model:ir.model.fields.selection,name:account_custom.selection__account_move__state__sent
+msgid "Sent"
+msgstr "Đã gửi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__signature
+msgid "Signature"
+msgstr "Chữ ký"
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Signature is missing."
+msgstr "Thiếu chữ ký"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__signature
+msgid "Signature received through the portal."
+msgstr "Chữ ký nhận được qua cổng thông tin."
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__signed_by
+msgid "Signed By"
+msgstr "Ký bởi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__signed_on
+msgid "Signed On"
+msgstr "Đã đăng nhập"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__source_id
+msgid "Source"
+msgstr "Nguồn"
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "Stage"
+msgstr "Giai đoạn"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_move__state
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__state
+msgid "Status"
+msgstr "Trạng thái"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Trạng thái dựa trên hoạt động\n"
+"Quá hạn: Ngày đến hạn phải được chuyển\n"
+"Hôm nay: Hôm nay là ngày phải thực hiện\n"
+"Kế hoạch: Các hoạt động trong tương lai."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Số tiền:"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "Số:"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "TP.Hồ Chí Minh,"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid ""
+"Tell us why you are refusing this Payment Approval, this will help us "
+"improve our services."
+msgstr ""
+"Hãy cho chúng tôi biết lý do bạn từ chối Phê duyệt Thanh toán này, điều này sẽ giúp chúng tôi "
+"cải thiện dịch vụ của chúng tôi."
+
+#. module: account_custom
+#: code:addons/account_custom/controllers/portal.py:0
+#, python-format
+msgid "The order is not in a state requiring customer signature."
+msgstr "Đơn đặt hàng không ở trạng thái yêu cầu chữ ký của khách hàng."
+
+#. module: account_custom
+#: code:addons/account_custom/models/account_payment.py:0
+#, python-format
+msgid "The payment is posted/cancelled. Please refresh form!"
+msgstr "Thanh toán được đăng / hủy bỏ. Vui lòng làm mới biểu mẫu!"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__campaign_id
+msgid ""
+"This is a name that helps you keep track of your different campaign efforts,"
+" e.g. Fall_Drive, Christmas_Special"
+msgstr ""
+"Đây là tên giúp bạn theo dõi các nỗ lực chiến dịch khác nhau của mình,"
+" e.g. Fall_Drive, Christmas_Special"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__medium_id
+msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
+msgstr "Đây là phương thức giao hàng, e.g. Postcard, Email, or Banner Ad"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__source_id
+msgid ""
+"This is the source of the link, e.g. Search Engine, another domain, or name "
+"of email list"
+msgstr ""
+"Đây là nguồn của liên kết, e.g. Search Engine, another domain, or name "
+"of email list"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.portal_my_payment_approvals
+msgid "Total"
+msgstr "Tổng cộng"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__type_name
+msgid "Type Name"
+msgstr "Tên loại"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Loại hoạt động ngoại lệ trên hồ sơ."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "TÀI VỤ"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "TỔNG LIÊN HỘI"
+msgstr ""
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_view_form_extend
+msgid "Unmark as Sent"
+msgstr "Bỏ đánh dấu là đã gửi"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_unread
+msgid "Unread Messages"
+msgstr "Tin chưa đọc"
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Bộ đếm tin chưa đọc"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_content
+#: model_terms:ir.ui.view,arch_db:account_custom.report_account_payment_document
+msgid "UỶ BAN KIẾN THIẾT"
+msgstr ""
+
+#. module: account_custom
+#: model:ir.model.fields,field_description:account_custom.field_account_payment__website_message_ids
+msgid "Website Messages"
+msgstr "Thông báo Website"
+
+#. module: account_custom
+#: model:ir.model.fields,help:account_custom.field_account_payment__website_message_ids
+msgid "Website communication history"
+msgstr "Lịch sử thông tin liên lạc website"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Your Account Payment has been confirmed."
+msgstr "Thanh toán Tài khoản của bạn đã được xác nhận."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Your Account Payment is not in a state to be rejected."
+msgstr "Thanh toán Tài khoản của bạn không ở trạng thái bị từ chối."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "Your feedback..."
+msgstr "Thông tin phản hồi của bạn..."
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.account_payment_portal_template
+msgid "close"
+msgstr "đóng"
+
+#. module: account_custom
+#: model_terms:ir.ui.view,arch_db:account_custom.mail_notification_approve_online
+msgid "t&gt;"
+msgstr ""
+
+#. module: account_custom
+#: model:mail.template,report_name:account_custom.email_template_account_approval
+msgid "{{ (object.name_seq or '').replace('/','-') }}"
+msgstr ""
+
+#. module: account_custom
+#: model:mail.template,subject:account_custom.email_template_account_approval
+msgid ""
+"{{ object.company_id.name }} Hóa đơn thanh toán (Ref {{ object.name_seq or "
+"'n/a' }})"
+msgstr ""

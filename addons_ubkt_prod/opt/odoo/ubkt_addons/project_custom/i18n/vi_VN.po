@@ -1,0 +1,994 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-03 04:43+0000\n"
+"PO-Revision-Date: 2022-07-03 04:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "&amp;times;"
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,body_html:project_custom.email_project_custom
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    \n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,body_html:project_custom.email_template_project_task_approval
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dear <t t-out=\"object.approval_id.name or ''\">Azure Interior</t><br/><br/>\n"
+"                        Please review the attachment and approve for the process next step.\n"
+"\n"
+"                        <!-- <div style=\"margin: 32px 0px 32px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object._get_share_url(redirect=False)\"\n"
+"                                style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                <t> Review &amp; Approve</t>\n"
+"                            </a>\n"
+"                        </div>\n"
+"\n"
+"                        Best regards, -->\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<i class=\"fa fa-check\"/> Accept"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<i class=\"fa fa-comment\"/> Feedback"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<i class=\"fa fa-times\"/> Reject"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<span>Accepted on the behalf of:</span>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid ""
+"<span>By confirming this proposal, I agree to the following terms:</span>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<span>For project code:</span>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<span>Please give your opinion about this project</span>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid ""
+"<strong><i>Vui lòng xem hồ sơ đính kèm bên dưới để duyệt nội bộ</i></strong>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<strong>Thank You!</strong><br/>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "<strong>This Project has been rejected.</strong>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "<strong>Ý KIẾN CỦA BAN CHẤP SỰ - BAN XÂY DỰNG</strong>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "<strong>Ý KIẾN CỦA MỤC SƯ QUẢN NHIỆM</strong>"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Accept"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__access_warning
+msgid "Access warning"
+msgstr "Cảnh báo truy cập"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_needaction
+msgid "Action Needed"
+msgstr "Hành động cần thiết"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_ids
+msgid "Activities"
+msgstr "Các hoạt động"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Hành động ngoại lệ"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_state
+msgid "Activity State"
+msgstr "Trạng thái hoạt động"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Biểu tượng kiểu hoạt động"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_attend_adult
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_official_adult
+msgid "Adult"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__amount_wantage
+msgid "Amount wantage"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__approval_id
+msgid "Approval"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__approval_state
+msgid "Approval Status"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__approval_state__approved
+msgid "Approved"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_attachment_count
+msgid "Attachment Count"
+msgstr "Số lượng tập tin đính kèm"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__authorized_person
+msgid "Authorized person to sign the pledge"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__benefactor
+msgid "Benefactor"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__benefactor_donate
+msgid "Benefactor donate"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__opinion_deacon_board
+msgid "Board Remark"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__campaign_id
+msgid "Campaign"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_attend_children
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_official_children
+msgid "Children"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__child_god_donate
+msgid "Children of God donate"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_land_ownership__church
+msgid "Church"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Close"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__name_seq
+msgid "Code"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Community"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Confirm Project"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Congregation"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_construct_size
+msgid "Const. size (length x width) (m2)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__construction_info
+msgid "Construction Info"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_construction_info_view_form_extend
+msgid "Construction Information"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Construction Plan"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_fp_view_form_extend
+msgid "Construction data"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_construct_scale
+msgid "Construction scale"
+msgstr ""
+
+#. module: project_custom
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_fp_view_form_extend
+#, python-format
+msgid "Create Payment"
+msgstr "Tạo thanh toán"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__access_url
+msgid "Customer Portal URL"
+msgstr "Đường link cổng thông tin khách hàng"
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Dedication of the church"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_branch_distance
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_town_distance
+msgid "Distance (km)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_land_obtain__donate
+msgid "Donate"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_cash_usd
+msgid "Donate Cash (usd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_cash_vnd
+msgid "Donate Cash (vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_materials_usd
+msgid "Donate Materials (usd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_materials_vnd
+msgid "Donate Materials (vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_email
+msgid "Email"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model,name:project_custom.model_mail_template
+msgid "Email Templates"
+msgstr "Mẫu Email"
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "Email:"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_fp_view_form_extend
+msgid "FP form"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Finance Details"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_fp_view_form_extend
+msgid "Finance Info"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__finance_promotion
+msgid "Finance Promotion"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_follower_ids
+msgid "Followers"
+msgstr "Người theo dõi"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Người theo dõi (Đối tác)"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font biểu tượng ví dụ: fa-tasks"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_name
+msgid "Full name Church Superintendent"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_give_effort_usd
+msgid "Give effort (usd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_give_effort_vnd
+msgid "Give effort (vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__has_message
+msgid "Has Message"
+msgstr "Có tin nhắn"
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "History"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_flag
+msgid "ICM"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "ICM form"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_exception_icon
+msgid "Icon"
+msgstr "Biểu tượng"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Biểu tượng để chỉ ra một hoạt động ngoại lệ."
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__message_needaction
+#: model:ir.model.fields,help:project_custom.field_project_task__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Nếu chọn, các tin nhắn mới yêu cầu sự có mặt của bạn."
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__message_has_error
+#: model:ir.model.fields,help:project_custom.field_project_task__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Nếu đánh dấu thì một số thông điệp có lỗi."
+
+#. module: project_custom
+#: code:addons/project_custom/controllers/portal.py:0
+#: code:addons/project_custom/controllers/portal.py:0
+#, python-format
+msgid "Invalid order."
+msgstr "Đơn hàng không hợp lệ"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_is_follower
+msgid "Is Follower"
+msgstr "Trở thành người theo dõi"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_land_usd
+msgid "Land (usd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_donate_land_vnd
+msgid "Land (vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__land_origin
+msgid "Land Origin"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__land_owner
+msgid "Land Owner"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Land Ownership"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_size
+msgid "Land Size (length x width) (m2))"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_ownership
+msgid "Land ownership"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__church_length
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_construct_length
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_length
+#: model:ir.model.fields,field_description:project_custom.field_project_task__land_length
+msgid "Length (m)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Tệp đính kèm chính"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_main_language
+msgid "Main Language"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__main_materials
+msgid "Main building materials (foundation, wall, door, roof...)"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_icm_view_form_extend
+msgid "Management Information"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_marital
+msgid "Marital Status"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_spintend_marital__married
+msgid "Married"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__medium_id
+msgid "Medium"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_has_error
+msgid "Message Delivery error"
+msgstr "Thông báo gửi đi gặp lỗi"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_ids
+msgid "Messages"
+msgstr "Thông báo"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_monthly_donate
+msgid "Monthly Donate(vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_completed_works
+msgid "Months to complete works"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_near_branch
+msgid "Nearest Branch"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_near_town
+msgid "Nearest Town or City"
+msgstr ""
+
+#. module: project_custom
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#, python-format
+msgid "New"
+msgstr "Mới"
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_construct_scale__heavy_materials
+msgid "New construction with heavy materials (brick, stone, cement)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_construct_scale__ligh_materials
+msgid ""
+"New construction with light materials (prefabricated house with steel frame)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sự kiện lịch hoạt động tiếp theo"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Hạn chót cho hành động kế tiếp"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_summary
+msgid "Next Activity Summary"
+msgstr "Tóm tắt hoạt động tiếp theo"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_type_id
+msgid "Next Activity Type"
+msgstr "Kiểu hoạt động kế tiếp"
+
+#. module: project_custom
+#: code:addons/project_custom/models/mail_compose_message.py:0
+#, python-format
+msgid "No recipient found. Please input Recipients!"
+msgstr "Không tìm thấy người nhận. Vui lòng nhập Người nhận!"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_children
+msgid "No. of children"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_exchange_rate
+msgid "Note: Currency exchange rate 1 usd = vnd"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Số lượng hành động"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_has_error_counter
+msgid "Number of errors"
+msgstr "Số lỗi"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Số thông báo cần xử lý"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Số lượng tin gửi đi bị lỗi"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_attend_num
+msgid "Number of people attending"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Số tin chưa đọc"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_no_years
+msgid "Number of years in position"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_serving
+msgid "Number of years serving the Lord in the church"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_official_believers
+msgid "Official number of believers"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__approval_state__open
+msgid "Open"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_construction_info_view_form_extend
+msgid "Opinion of the deacon board - the construction board"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_construction_info_view_form_extend
+msgid "Opinion of the pastor"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_other
+msgid "Other"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_land_ownership__others
+msgid "Others"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_participate
+msgid "Participate in bible training programs"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__opinion_pastor
+msgid "Pastor Remark"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_fp_view_form_extend
+msgid "Payment"
+msgstr ""
+
+#. module: project_custom
+#: code:addons/project_custom/models/finance_promotion.py:0
+#: code:addons/project_custom/models/finance_promotion.py:0
+#, python-format
+msgid "Payments"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_spintend_phone
+msgid "Phone"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid ""
+"Please tell us why you are refusing this project, this will help us improve "
+"our services."
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_population_area
+msgid "Population of the area (person)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__access_url
+msgid "Portal Access URL"
+msgstr "URL truy cập cổng thông tin"
+
+#. module: project_custom
+#: model:ir.actions.report,name:project_custom.action_report_project_custom
+msgid "Project Custom"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model,name:project_custom.model_project_task
+msgid "Project Task"
+msgstr "Nhiệm vụ dự án"
+
+#. module: project_custom
+#: code:addons/project_custom/controllers/portal.py:0
+#: code:addons/project_custom/controllers/portal.py:0
+#, python-format
+msgid "Project is approved by %s"
+msgstr "Dự án được chấp thuận bởi %s"
+
+#. module: project_custom
+#: code:addons/project_custom/controllers/portal.py:0
+#: code:addons/project_custom/controllers/portal.py:0
+#, python-format
+msgid "Project is rejected by %s"
+msgstr "Dự án bị từ chối bởi %s"
+
+#. module: project_custom
+#: model:mail.template,name:project_custom.email_project_custom
+msgid "Project: Send by email"
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,name:project_custom.email_template_project_task_approval
+msgid "Project: Send to Approval"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_land_obtain__purchase
+msgid "Purchase"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Reject Project"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__approval_state__rejected
+msgid "Rejected"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_construct_scale__repair
+msgid "Repair"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__activity_user_id
+msgid "Responsible User"
+msgstr "Người phụ trách"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Lỗi gửi SMS"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__access_token
+msgid "Security Token"
+msgstr "Mã bảo mật"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__approval_id
+msgid "Select a approval user "
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_construction_info_view_form_extend
+msgid "Send to Approval"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields.selection,name:project_custom.selection__project_task__icm_spintend_marital__single
+msgid "Single"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__source_id
+msgid "Source"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Trạng thái dựa trên hoạt động\n"
+"Quá hạn: Ngày đến hạn phải được chuyển\n"
+"Hôm nay: Hôm nay là ngày phải thực hiện\n"
+"Kế hoạch: Các hoạt động trong tương lai."
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "Số điện thoại:"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__attachment_id
+msgid "The project file"
+msgstr "Tệp tài liệu dự án"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__campaign_id
+msgid ""
+"This is a name that helps you keep track of your different campaign efforts,"
+" e.g. Fall_Drive, Christmas_Special"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__medium_id
+msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__source_id
+msgid ""
+"This is the source of the link, e.g. Search Engine, another domain, or name "
+"of email list"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_obtain
+msgid "This land is obtain from"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__total_amount_spent
+msgid "Total amount spent"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_total_build_cost_usd
+msgid "Total building cost (usd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_total_build_cost_vnd
+msgid "Total building cost (vnd)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__total_church_area
+msgid "Total church area (m2)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__total_estimate_church
+msgid "Total estimate of church construction"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__total_land_area
+msgid "Total land area (m2)"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Loại hoạt động ngoại lệ trên hồ sơ."
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "Tên Hội Thánh:"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_unread
+msgid "Unread Messages"
+msgstr "Tin chưa đọc"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Bộ đếm tin chưa đọc"
+
+#. module: project_custom
+#: code:addons/project_custom/models/mail_template.py:0
+#, python-format
+msgid "Unsupported report type %s found."
+msgstr "Không hỗ trợ loại báo cáo %s được tìm thấy."
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__up_to_date
+msgid "Up to date"
+msgstr ""
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__website_message_ids
+msgid "Website Messages"
+msgstr "Thông báo Website"
+
+#. module: project_custom
+#: model:ir.model.fields,help:project_custom.field_project_task__website_message_ids
+msgid "Website communication history"
+msgstr "Lịch sử thông tin liên lạc website"
+
+#. module: project_custom
+#: model:ir.model.fields,field_description:project_custom.field_project_task__church_width
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_construct_width
+#: model:ir.model.fields,field_description:project_custom.field_project_task__icm_land_width
+#: model:ir.model.fields,field_description:project_custom.field_project_task__land_width
+msgid "Width (m)"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Your Project has been confirmed."
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Your Project is not in a state to be approved."
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Your Project is not in a state to be rejected."
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "Your feedback..."
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_template
+msgid "close"
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,report_name:project_custom.email_template_project_task_approval
+msgid "{{ (object.name_seq or '').replace('/','-') }}"
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,subject:project_custom.email_template_project_task_approval
+msgid ""
+"{{ object.company_id.name }} Project (Ref {{ object.name_seq or 'n/a' }})"
+msgstr ""
+
+#. module: project_custom
+#: model:mail.template,subject:project_custom.email_project_custom
+msgid "{{ object.name }} ({{ object.name_seq }})"
+msgstr ""
+
+#. module: project_custom
+#: model_terms:ir.ui.view,arch_db:project_custom.project_task_portal_content
+msgid "Địa chỉ:"
+msgstr ""
