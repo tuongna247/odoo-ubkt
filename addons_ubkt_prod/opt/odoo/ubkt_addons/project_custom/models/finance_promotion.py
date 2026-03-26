@@ -54,6 +54,26 @@ class FinancePromotion(models.Model):
     church_width = fields.Float(string='Church Width (m)', default=0)
     main_materials = fields.Text(string='Main building materials (foundation, wall, door, roof...)')
 
+    # Impact metrics (for donor dashboard)
+    believers_capacity    = fields.Integer(string='Believers capacity (seats)')
+    bible_classes_count   = fields.Integer(string='Bible classes created')
+    gospel_outreach_count = fields.Integer(string='Gospel outreach count')
+    new_believers_count   = fields.Integer(string='New believers')
+
+    # Vietnam map pin
+    province_code = fields.Char(string='Province Code', help='e.g. VN-44, matches SVG path id')
+
+    # Media
+    featured_video_url   = fields.Char(string='Featured Video URL (YouTube embed)')
+    before_image_ids     = fields.Many2many('ir.attachment', 'task_before_img_rel', 'task_id', 'att_id', string='Before Photos')
+    after_image_ids      = fields.Many2many('ir.attachment', 'task_after_img_rel', 'task_id', 'att_id', string='After Photos')
+    post_donation_report = fields.Text(string='Post-donation Report')
+
+    # Explore / portal
+    available_for_donation = fields.Boolean(string='Open for Donation', default=False)
+    thumbnail_image        = fields.Binary(string='Thumbnail', attachment=True)
+    pastor_name            = fields.Char(string='Pastor Name')
+
     approved_data_entry = fields.Boolean(string='Approved Data', default=False, store=True, readonly=True, tracking=True, copy=False)
     user_has_data_entry_approval = fields.Boolean(string='Has Data Entry Approval', compute='_compute_user_has_data_entry_approval')
 

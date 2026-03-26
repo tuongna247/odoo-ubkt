@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+from urllib.parse import quote as url_quote
 from odoo import http, fields
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
@@ -6,6 +8,11 @@ from collections import defaultdict
 
 
 class DonorPortal(CustomerPortal):
+
+    # Bank info for VietQR — update these to match UBKT's actual bank account
+    _BANK_CODE = 'MB'
+    _BANK_ACCOUNT = '1234567890'
+    _ACCOUNT_NAME = 'UY BAN KIEN THIET'
 
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
@@ -168,3 +175,235 @@ class DonorPortal(CustomerPortal):
             'is_admin': is_admin,
         }
         return request.render('donor_portal.portal_donor_detail', values)
+
+    # ─── Dashboard ───────────────────────────────────────────────────────────
+
+    @http.route(['/my/', '/my/dashboard'], type='http', auth='user', website=True)
+    def portal_dashboard(self, **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/donations')
+
+        Payment = request.env['account.payment'].sudo()
+        my_payments = Payment.search([('benefactor_id', '=', employee.id), ('state', '=', 'posted')])
+        my_tasks = my_payments.mapped('project_task_id')
+
+        grand_total_vnd = sum(my_payments.mapped('amount'))
+        map_tasks = [
+            {'province': t.province_code, 'name': t.partner_id.name or t.name}
+            for t in my_tasks if t.province_code
+        ]
+        featured_clips = my_tasks.filtered(lambda t: t.featured_video_url)[:5]
+
+        values = {
+            'employee': employee,
+            'project_count': len(my_tasks),
+            'believers_total': sum(my_tasks.mapped('believers_capacity')),
+            'bible_classes_total': sum(my_tasks.mapped('bible_classes_count')),
+            'gospel_total': sum(my_tasks.mapped('gospel_outreach_count')),
+            'new_believers_total': sum(my_tasks.mapped('new_believers_count')),
+            'grand_total_vnd': grand_total_vnd,
+            'map_tasks_json': json.dumps(map_tasks),
+            'featured_clips': featured_clips,
+            'page_name': 'dashboard',
+        }
+        return request.render('donor_portal.portal_dashboard', values)
+
+    # ─── My Projects ─────────────────────────────────────────────────────────
+
+    @http.route(['/my/projects'], type='http', auth='user', website=True)
+    def portal_my_projects(self, **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/donations')
+
+        my_task_ids = request.env['account.payment'].sudo().search([
+            ('benefactor_id', '=', employee.id), ('state', '=', 'posted')
+        ]).mapped('project_task_id.id')
+        my_tasks = request.env['project.task'].sudo().search([('id', 'in', my_task_ids)])
+
+        values = {
+            'employee': employee,
+            'tasks': my_tasks,
+            'page_name': 'my_projects',
+        }
+        return request.render('donor_portal.portal_my_projects', values)
+
+    @http.route(['/my/projects/<int:task_id>'], type='http', auth='user', website=True)
+    def portal_project_detail(self, task_id, **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/donations')
+
+        # Security: donor must have a payment linked to this task
+        has_access = request.env['account.payment'].sudo().search_count([
+            ('benefactor_id', '=', employee.id),
+            ('project_task_id', '=', task_id),
+            ('state', '=', 'posted'),
+        ])
+        if not has_access:
+            return request.redirect('/my/projects')
+
+        task = request.env['project.task'].sudo().browse(task_id)
+        if not task.exists():
+            return request.redirect('/my/projects')
+
+        task_payments = request.env['account.payment'].sudo().search([
+            ('benefactor_id', '=', employee.id),
+            ('project_task_id', '=', task_id),
+            ('state', '=', 'posted'),
+        ])
+
+        values = {
+            'employee': employee,
+            'task': task,
+            'task_payments': task_payments,
+            'page_name': 'my_projects',
+        }
+        return request.render('donor_portal.portal_project_detail', values)
+
+    # ─── Explore ─────────────────────────────────────────────────────────────
+
+    @http.route(['/my/explore'], type='http', auth='user', website=True)
+    def portal_explore(self, **kw):
+        open_tasks = request.env['project.task'].sudo().search([
+            ('available_for_donation', '=', True),
+            ('approved_data_entry', '=', True),
+        ])
+        values = {
+            'tasks': open_tasks,
+            'page_name': 'explore',
+        }
+        return request.render('donor_portal.portal_explore', values)
+
+    # ─── Donation Flow ────────────────────────────────────────────────────────
+
+    @http.route(['/my/donate/<int:task_id>'], type='http', auth='user', website=True)
+    def portal_donate_form(self, task_id, **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/explore')
+
+        task = request.env['project.task'].sudo().search([
+            ('id', '=', task_id),
+            ('available_for_donation', '=', True),
+        ], limit=1)
+        if not task:
+            return request.redirect('/my/explore')
+
+        values = {
+            'task': task,
+            'employee': employee,
+            'page_name': 'explore',
+        }
+        return request.render('donor_portal.portal_donate_form', values)
+
+    @http.route(['/my/donate/<int:task_id>/submit'], type='http', auth='user', website=True, methods=['POST'], csrf=True)
+    def portal_donate_submit(self, task_id, amount=0, payment_method='bank', note='', **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/explore')
+
+        try:
+            amount = float(amount)
+        except (ValueError, TypeError):
+            amount = 0
+
+        if amount <= 0:
+            return request.redirect('/my/donate/%d' % task_id)
+
+        task = request.env['project.task'].sudo().search([
+            ('id', '=', task_id), ('available_for_donation', '=', True)
+        ], limit=1)
+        if not task:
+            return request.redirect('/my/explore')
+
+        donor_name = employee.name or request.env.user.name
+        transfer_note = note.strip() if note.strip() else '%s dang hien %s' % (donor_name, task.name)
+
+        qr_url = 'https://img.vietqr.io/image/%s-%s-compact.jpg?amount=%d&addInfo=%s&accountName=%s' % (
+            self._BANK_CODE, self._BANK_ACCOUNT,
+            int(amount),
+            url_quote(transfer_note),
+            url_quote(self._ACCOUNT_NAME),
+        )
+
+        values = {
+            'task': task,
+            'employee': employee,
+            'amount': amount,
+            'payment_method': payment_method,
+            'note': transfer_note,
+            'qr_url': qr_url,
+            'bank_code': self._BANK_CODE,
+            'bank_account': self._BANK_ACCOUNT,
+            'account_name': self._ACCOUNT_NAME,
+            'page_name': 'explore',
+        }
+        return request.render('donor_portal.portal_donate_confirm', values)
+
+    @http.route(['/my/donate/thankyou'], type='http', auth='user', website=True)
+    def portal_donate_thankyou(self, task_id=None, **kw):
+        task = None
+        if task_id:
+            task = request.env['project.task'].sudo().browse(int(task_id))
+            if not task.exists():
+                task = None
+        values = {
+            'task': task,
+            'page_name': 'explore',
+            'bible_verse': 'Người nào gieo ít thì gặt ít, người nào gieo nhiều thì gặt nhiều. — 2 Cô-rinh-tô 9:6',
+        }
+        return request.render('donor_portal.portal_donate_thankyou', values)
+
+    # ─── Personal Goals ───────────────────────────────────────────────────────
+
+    @http.route(['/my/goals'], type='http', auth='user', website=True, methods=['GET', 'POST'])
+    def portal_goals(self, year=None, target_projects=0, target_amount=0, prayer_note='', **kw):
+        employee = self._get_current_employee()
+        if not employee:
+            return request.redirect('/my/donations')
+
+        current_year = fields.Date.today().year
+        goal_year = int(year) if year else current_year
+
+        GoalModel = request.env['donor.goal'].sudo()
+
+        if request.httprequest.method == 'POST':
+            existing = GoalModel.search([('employee_id', '=', employee.id), ('year', '=', goal_year)], limit=1)
+            vals = {
+                'employee_id': employee.id,
+                'year': goal_year,
+                'target_projects': int(target_projects or 0),
+                'target_amount': float(target_amount or 0),
+                'prayer_note': prayer_note,
+            }
+            if existing:
+                existing.write(vals)
+            else:
+                GoalModel.create(vals)
+
+        goal = GoalModel.search([('employee_id', '=', employee.id), ('year', '=', goal_year)], limit=1)
+
+        # Compute current year progress
+        Payment = request.env['account.payment'].sudo()
+        year_payments = Payment.search([
+            ('benefactor_id', '=', employee.id),
+            ('state', '=', 'posted'),
+            ('date', '>=', '%d-01-01' % goal_year),
+            ('date', '<=', '%d-12-31' % goal_year),
+        ])
+        current_amount = sum(year_payments.mapped('amount'))
+        current_project_ids = year_payments.mapped('project_task_id.id')
+        current_projects = len(set(current_project_ids))
+
+        values = {
+            'employee': employee,
+            'goal': goal,
+            'goal_year': goal_year,
+            'current_year': current_year,
+            'current_amount': current_amount,
+            'current_projects': current_projects,
+            'page_name': 'goals',
+        }
+        return request.render('donor_portal.portal_goals', values)

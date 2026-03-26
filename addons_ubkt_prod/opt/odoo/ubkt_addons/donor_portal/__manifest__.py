@@ -10,6 +10,12 @@
         'security/ir.model.access.csv',
         'views/donor_portal_templates.xml',
     ],
+    'assets': {
+        'web.assets_frontend': [
+            'donor_portal/static/src/css/donor_portal.css',
+            'donor_portal/static/src/js/donor_map.js',
+        ],
+    },
     'application': False,
     'license': 'LGPL-3',
 }

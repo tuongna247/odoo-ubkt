@@ -59,6 +59,9 @@ class AccountPayment(models.Model):
     paper_payment_code = fields.Char(string='Paper Code')
 
     is_advance = fields.Boolean(string="Advance Payment", store=True, tracking=True)
+    receipt_attachment_ids = fields.Many2many(
+        'ir.attachment', 'payment_receipt_rel', 'payment_id', 'att_id', string='Receipts'
+    )
 
     def _benefactor_context(self):
         return {'benefactor_flag': True}
