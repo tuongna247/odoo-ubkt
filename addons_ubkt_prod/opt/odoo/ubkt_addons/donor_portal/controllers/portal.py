@@ -186,13 +186,60 @@ class DonorPortal(CustomerPortal):
 
         Payment = request.env['account.payment'].sudo()
         my_payments = Payment.search([('benefactor_id', '=', employee.id), ('state', '=', 'posted')])
-        my_tasks = my_payments.mapped('project_task_id')
+        task_ids = list(set(my_payments.mapped('project_task_id.id')))
+        my_tasks = request.env['project.task'].sudo().browse(task_ids)
 
         grand_total_vnd = sum(my_payments.mapped('amount'))
-        map_tasks = [
-            {'province': t.province_code, 'name': t.partner_id.name or t.name}
-            for t in my_tasks if t.province_code
-        ]
+
+        # Build per-task donation totals
+        task_donations = {}
+        for p in my_payments:
+            tid = p.project_task_id.id
+            if tid:
+                task_donations[tid] = task_donations.get(tid, 0) + (p.amount or 0)
+
+        # Group by province using state_id already stored on payments (production data)
+        province_map = {}
+        pin_idx = 1
+        for t in my_tasks:
+            # Use state_id from task's partner (already stored in production)
+            state = t.partner_id.state_id if t.partner_id else False
+            province_label = (state.name if state else '') or t.city or 'Chưa phân tỉnh'
+            province_code  = t.province_code or ''
+
+            if province_label not in province_map:
+                province_map[province_label] = {
+                    'province_label': province_label,
+                    'province_code': province_code,
+                    'idx': pin_idx,
+                    'churches': [],
+                    'total_amount': 0,
+                    'has_pin': bool(province_code),
+                }
+                pin_idx += 1
+
+            # Keep first province_code found for this group (for map pin)
+            if not province_map[province_label]['province_code'] and province_code:
+                province_map[province_label]['province_code'] = province_code
+                province_map[province_label]['has_pin'] = True
+
+            province_map[province_label]['churches'].append({
+                'id': t.id,
+                'name': t.partner_id.name or t.name,
+                'amount': task_donations.get(t.id, 0),
+            })
+            province_map[province_label]['total_amount'] += task_donations.get(t.id, 0)
+
+        province_list = sorted(
+            province_map.values(),
+            key=lambda x: (-x['total_amount'], x['province_label'])
+        )
+
+        map_tasks_json = json.dumps([
+            {'idx': p['idx'], 'province': p['province_code'], 'name': p['province_label']}
+            for p in province_list if p['has_pin']
+        ])
+
         featured_clips = my_tasks.filtered(lambda t: t.featured_video_url)[:5]
 
         values = {
@@ -203,7 +250,8 @@ class DonorPortal(CustomerPortal):
             'gospel_total': sum(my_tasks.mapped('gospel_outreach_count')),
             'new_believers_total': sum(my_tasks.mapped('new_believers_count')),
             'grand_total_vnd': grand_total_vnd,
-            'map_tasks_json': json.dumps(map_tasks),
+            'map_tasks_json': map_tasks_json,
+            'province_list': province_list,
             'featured_clips': featured_clips,
             'page_name': 'dashboard',
         }
@@ -217,10 +265,10 @@ class DonorPortal(CustomerPortal):
         if not employee:
             return request.redirect('/my/donations')
 
-        my_task_ids = request.env['account.payment'].sudo().search([
+        task_ids = list(set(request.env['account.payment'].sudo().search([
             ('benefactor_id', '=', employee.id), ('state', '=', 'posted')
-        ]).mapped('project_task_id.id')
-        my_tasks = request.env['project.task'].sudo().search([('id', 'in', my_task_ids)])
+        ]).mapped('project_task_id.id')))
+        my_tasks = request.env['project.task'].sudo().browse(task_ids)
 
         values = {
             'employee': employee,
